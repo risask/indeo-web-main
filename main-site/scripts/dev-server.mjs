@@ -1,5 +1,7 @@
 // Server dev sementara — HANYA untuk uji visual/fungsional lokal, BUKAN bagian dari deploy Netlify.
-// (Sudah diblokir juga di netlify.toml lewat redirect /scripts/* → 404, sebagai lapisan kedua.)
+// Serve static file dari main-site/public/ (persis publish dir Netlify) — jadi /scripts/... dan
+// /netlify/... otomatis 404 di sini juga, karena memang tidak ada di dalam public/ (allowlist by
+// folder structure, bukan redirect blocklist).
 //
 // CARA PAKAI:
 //   node scripts/dev-server.mjs
@@ -20,7 +22,7 @@ import { getProgram } from "../netlify/functions/lib/programs.js";
 import { validateBatch, computeQuotaPct, daysUntil } from "../netlify/functions/lib/schema.js";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
-const SITE_ROOT = path.join(SCRIPT_DIR, ".."); // main-site/ — folder yang benar-benar di-publish
+const SITE_ROOT = path.join(SCRIPT_DIR, "..", "public"); // main-site/public/ — publish dir yang benar-benar di-deploy Netlify
 const PORT = 8888;
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".png": "image/png", ".ico": "image/x-icon", ".xml": "application/xml", ".txt": "text/plain" };
 
