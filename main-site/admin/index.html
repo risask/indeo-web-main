@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<title>Panel Admin — Batch Training | InDeo Institute</title>
+<meta name="robots" content="noindex, nofollow">
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500,600;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F3A; --gold:#C9A84C; --cream:#FAF8F3; --paper:#FFFFFF;
+    --ink:#1c2430; --ink-soft:#5b6472; --line:#e4e0d4; --rust:#A6432F; --rust-bg:#F6E6E1;
+    --ok:#3E7A5C; --ok-bg:#E6F0EA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  [hidden]{display:none !important;}
+  body{font-family:'DM Sans', sans-serif;background:var(--cream);color:var(--ink);}
+  h1,h2{font-family:'Cormorant Garamond', serif;color:var(--navy);font-weight:600;}
+
+  header{background:var(--navy);color:var(--cream);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;}
+  header h1{color:var(--cream);font-size:1.4rem;}
+  header .sub{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+  header button{
+    background:transparent;border:1px solid rgba(250,248,243,.4);color:var(--cream);
+    padding:8px 16px;border-radius:2px;font-size:.82rem;cursor:pointer;
+  }
+  header button:hover{border-color:var(--gold);color:var(--gold);}
+
+  main{max-width:1100px;margin:0 auto;padding:32px 24px 80px;}
+
+  #gate{
+    max-width:420px;margin:80px auto;text-align:center;background:var(--paper);
+    border:1px solid var(--line);border-radius:4px;padding:40px 32px;
+  }
+  #gate p{color:var(--ink-soft);margin-bottom:22px;font-size:.92rem;}
+  #gate button{
+    background:var(--gold);color:var(--navy);font-weight:700;border:none;
+    padding:13px 28px;border-radius:2px;font-size:.92rem;cursor:pointer;
+  }
+
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  #status-msg{font-size:.85rem;font-weight:600;}
+  #status-msg.ok{color:var(--ok);}
+  #status-msg.err{color:var(--rust);}
+
+  table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:.86rem;}
+  thead tr{background:var(--navy);color:var(--cream);}
+  th, td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);}
+  tbody tr:nth-child(even){background:#FBF9F4;}
+  td .title{font-weight:600;color:var(--navy);}
+  td .regcode{font-family:monospace;font-size:.72rem;color:var(--ink-soft);}
+  input, select{
+    border:1px solid var(--line);border-radius:2px;padding:6px 8px;font-size:.85rem;
+    font-family:'DM Sans',sans-serif;width:100%;
+  }
+  input:disabled{background:#f2f0e8;color:#a3a3a3;}
+  .quota-readonly{font-family:monospace;font-size:.82rem;color:var(--ink-soft);white-space:nowrap;}
+  .quota-readonly strong{color:var(--ok);}
+  .row-save{
+    background:var(--navy);color:#fff;border:none;padding:7px 14px;border-radius:2px;
+    font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;
+  }
+  .row-save:hover{background:var(--gold);color:var(--navy);}
+  .row-save:disabled{opacity:.5;cursor:default;}
+  .row-msg{font-size:.72rem;margin-top:4px;}
+  .row-msg.ok{color:var(--ok);}
+  .row-msg.err{color:var(--rust);}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <h1>Panel Admin</h1>
+  <p>Kelola jadwal batch training. Khusus staf InDeo yang sudah diundang.</p>
+  <button id="login-btn">Login</button>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <div>
+      <div class="sub">InDeo Institute</div>
+      <h1>Manajemen Batch Training</h1>
+    </div>
+    <button id="logout-btn">Logout</button>
+  </header>
+  <main>
+    <div class="toolbar">
+      <p style="color:var(--ink-soft);font-size:.85rem;">Kuota (Kursi Terisi/Kapasitas) dihitung otomatis dari pendaftaran masuk — bukan field yang bisa diedit.</p>
+      <span id="status-msg"></span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Program</th>
+            <th>Mulai</th>
+            <th>Selesai</th>
+            <th>Format</th>
+            <th>Venue</th>
+            <th>Kapasitas</th>
+            <th>Kuota</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="batch-rows"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var gate = document.getElementById('gate');
+  var app = document.getElementById('app');
+  var loginBtn = document.getElementById('login-btn');
+  var logoutBtn = document.getElementById('logout-btn');
+  var rowsEl = document.getElementById('batch-rows');
+  var statusMsg = document.getElementById('status-msg');
+
+  function waitForWidget(cb) {
+    if (window.netlifyIdentity) return cb(window.netlifyIdentity);
+    setTimeout(function(){ waitForWidget(cb); }, 100);
+  }
+
+  waitForWidget(function(netlifyIdentity){
+    netlifyIdentity.on('init', function(user){
+      if (user) showApp(user);
+    });
+    netlifyIdentity.on('login', function(user){
+      netlifyIdentity.close();
+      showApp(user);
+    });
+    netlifyIdentity.on('logout', function(){
+      app.hidden = true;
+      gate.hidden = false;
+    });
+    netlifyIdentity.init();
+
+    loginBtn.addEventListener('click', function(){ netlifyIdentity.open('login'); });
+    logoutBtn.addEventListener('click', function(){ netlifyIdentity.logout(); });
+
+    function showApp(user) {
+      gate.hidden = true;
+      app.hidden = false;
+      loadBatches(user);
+    }
+
+    function setStatus(text, cls) {
+      statusMsg.textContent = text;
+      statusMsg.className = cls || '';
+    }
+
+    function authHeaders(user) {
+      return user.jwt().then(function(token){
+        return { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+      });
+    }
+
+    function loadBatches(user) {
+      setStatus('Memuat...', '');
+      authHeaders(user).then(function(headers){
+        return fetch('/api/admin/batches', { headers: headers });
+      }).then(function(r){
+        if (r.status === 401) throw new Error('Sesi tidak sah — silakan login ulang.');
+        if (!r.ok) throw new Error('Gagal memuat data (' + r.status + ')');
+        return r.json();
+      }).then(function(batches){
+        renderRows(batches, user);
+        setStatus('', '');
+      }).catch(function(err){
+        setStatus(err.message, 'err');
+      });
+    }
+
+    function renderRows(batches, user) {
+      rowsEl.innerHTML = '';
+      batches.forEach(function(b){
+        var tr = document.createElement('tr');
+        var quotaPct = b.maxCapacity ? Math.round((b.registeredCount / b.maxCapacity) * 100) : 0;
+        tr.innerHTML =
+          '<td><div class="title">' + (b.program ? b.program.title : b.programId) + '</div><div class="regcode">' + (b.program ? b.program.regCode : '') + '</div></td>' +
+          '<td><input type="date" class="f-start" value="' + b.dateStart + '"></td>' +
+          '<td><input type="date" class="f-end" value="' + b.dateEnd + '"></td>' +
+          '<td><select class="f-format"><option value="online"' + (b.format==='online'?' selected':'') + '>Online</option><option value="onsite"' + (b.format==='onsite'?' selected':'') + '>Onsite</option></select></td>' +
+          '<td><input type="text" class="f-venue" value="' + (b.venue||'').replace(/"/g,'&quot;') + '" placeholder="Nama venue" ' + (b.format!=='onsite'?'disabled':'') + '></td>' +
+          '<td><input type="number" class="f-capacity" min="1" value="' + b.maxCapacity + '" style="width:70px;"></td>' +
+          '<td class="quota-readonly">' + b.registeredCount + '/' + b.maxCapacity + ' (<strong>' + quotaPct + '%</strong>)</td>' +
+          '<td><select class="f-status"><option value="open"' + (b.status==='open'?' selected':'') + '>Open</option><option value="closed"' + (b.status==='closed'?' selected':'') + '>Closed</option><option value="draft"' + (b.status==='draft'?' selected':'') + '>Draft</option></select></td>' +
+          '<td><button class="row-save">Simpan</button><div class="row-msg"></div></td>';
+
+        var formatSel = tr.querySelector('.f-format');
+        var venueInput = tr.querySelector('.f-venue');
+        formatSel.addEventListener('change', function(){
+          venueInput.disabled = formatSel.value !== 'onsite';
+        });
+
+        tr.querySelector('.row-save').addEventListener('click', function(){
+          saveRow(b, tr, user);
+        });
+
+        rowsEl.appendChild(tr);
+      });
+    }
+
+    function saveRow(original, tr, user) {
+      var btn = tr.querySelector('.row-save');
+      var msg = tr.querySelector('.row-msg');
+      var updated = Object.assign({}, original, {
+        dateStart: tr.querySelector('.f-start').value,
+        dateEnd: tr.querySelector('.f-end').value,
+        format: tr.querySelector('.f-format').value,
+        venue: tr.querySelector('.f-venue').value,
+        maxCapacity: parseInt(tr.querySelector('.f-capacity').value, 10),
+        status: tr.querySelector('.f-status').value,
+      });
+      delete updated.quotaPct;
+      delete updated.program;
+      delete updated.daysUntilStart;
+      delete updated.daysUntilRegDeadline;
+
+      btn.disabled = true;
+      msg.textContent = '';
+      msg.className = 'row-msg';
+
+      authHeaders(user).then(function(headers){
+        return fetch('/api/admin/batches', { method: 'PUT', headers: headers, body: JSON.stringify(updated) });
+      }).then(function(r){
+        return r.json().then(function(body){ return { ok: r.ok, body: body }; });
+      }).then(function(res){
+        btn.disabled = false;
+        if (!res.ok) {
+          msg.textContent = res.body.error || 'Gagal menyimpan';
+          msg.className = 'row-msg err';
+          return;
+        }
+        msg.textContent = 'Tersimpan.';
+        msg.className = 'row-msg ok';
+        setTimeout(function(){ msg.textContent = ''; }, 2500);
+      }).catch(function(){
+        btn.disabled = false;
+        msg.textContent = 'Gagal menyimpan (jaringan)';
+        msg.className = 'row-msg err';
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Program BPR/BPRS — InDeo Institute</title>
+<!-- Google tag (gtag.js) — konsisten dengan indeoinstitute.id -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-382CYXS7M1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-382CYXS7M1');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-soft:#16305a;
+    --gold:#C9A84C;
+    --gold-soft:#e4d3a1;
+    --cream:#FAF8F3;
+    --paper:#FFFFFF;
+    --ink:#1c2430;
+    --ink-soft:#5b6472;
+    --line:#e4e0d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'DM Sans', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--navy);
+    font-weight:600;
+  }
+  a{color:inherit;}
+  .accent-bar{
+    height:3px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
+  }
+  nav{background:var(--navy);padding:1.1rem 0;}
+  .nav-inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;text-decoration:none;}
+  .nav-links{display:flex;gap:1.5rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;}
+  .nav-links a:hover{color:var(--gold);}
+  @media (max-width:560px){
+    .nav-links{gap:1rem;}
+    .nav-links a{font-size:11px;}
+  }
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .eyebrow{
+    font-family:'DM Sans', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--gold);
+  }
+
+  /* HERO */
+  .hero{
+    background:var(--navy);
+    color:var(--cream);
+    padding:88px 0 76px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-illustration{
+    position:absolute;
+    top:50%; right:-40px;
+    transform:translateY(-50%);
+    width:380px; height:380px;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero-illustration svg{width:100%;height:100%;}
+  .hero .wrap{position:relative;z-index:1;}
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-120px; top:-120px;
+    width:420px; height:420px;
+    border:1px solid rgba(201,168,76,.25);
+    border-radius:50%;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    right:-60px; top:-60px;
+    width:280px; height:280px;
+    border:1px solid rgba(201,168,76,.18);
+    border-radius:50%;
+  }
+  .hero .eyebrow{color:var(--gold-soft);}
+  .hero h1{
+    font-size:clamp(2.1rem, 4.2vw, 3.1rem);
+    line-height:1.15;
+    max-width:780px;
+    margin:18px 0 22px;
+  }
+  .hero p{
+    max-width:620px;
+    color:rgba(250,248,243,.82);
+    font-size:1.05rem;
+  }
+  .badge-roadmap{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:26px;
+    padding:9px 16px;
+    border:1px solid rgba(201,168,76,.4);
+    border-radius:999px;
+    font-size:.82rem;
+    color:var(--gold-soft);
+  }
+  .badge-roadmap::before{
+    content:"";
+    width:6px;height:6px;border-radius:50%;
+    background:var(--gold);
+    display:inline-block;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:700;
+    padding:14px 30px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:.95rem;
+    letter-spacing:.02em;
+    margin-top:32px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 8px 20px rgba(201,168,76,.25); }
+  .btn-outline{
+    background:transparent;
+    border:1px solid var(--navy);
+    color:var(--navy);
+  }
+
+  /* SECTION 2 — CONTEXT */
+  .context{
+    padding:72px 0;
+  }
+  .context .eyebrow{color:var(--navy);}
+  .context h2{font-size:2rem; margin:14px 0 20px;}
+  .context .lead{
+    max-width:760px;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+    margin-bottom:34px;
+  }
+  .context-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+    gap:20px;
+  }
+  .context-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:3px solid var(--gold);
+    padding:22px 20px;
+  }
+  .context-card .label{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;
+    color:var(--navy);
+    margin-bottom:8px;
+    display:block;
+  }
+  .context-card p{font-size:.9rem; color:var(--ink-soft);}
+
+  /* BATCH TRAINING CARDS */
+  .batch-section{ padding:72px 0; background:var(--cream); }
+  .batch-section h2{font-size:2rem; margin:14px 0 14px;}
+  .batch-section .lead{max-width:700px; color:var(--ink-soft); margin-bottom:34px;}
+  .batch-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:900px){ .batch-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px){ .batch-grid{ grid-template-columns:1fr; } }
+
+  .batch-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:4px; overflow:hidden;
+    display:flex; flex-direction:column; transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .batch-card:hover{ box-shadow:0 12px 28px rgba(11,31,58,0.12); transform:translateY(-2px); }
+  .batch-poster{
+    position:relative; padding:14px 16px; min-height:96px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    background:linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+  }
+  .batch-poster .track-tag{
+    align-self:flex-start; font-size:10px; letter-spacing:1.3px; text-transform:uppercase;
+    color:var(--navy); background:var(--gold-soft); padding:3px 8px; border-radius:2px; font-weight:700;
+  }
+  .batch-poster .reg-code{ font-family:monospace; font-size:10px; color:rgba(250,248,243,.65); margin-top:8px; }
+  .batch-poster .poster-title{ font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:700; color:var(--cream); line-height:1.25; }
+
+  .batch-body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .batch-meta-row{ display:flex; align-items:center; justify-content:space-between; font-size:12px; flex-wrap:wrap; gap:6px; }
+  .batch-location-pill{
+    font-weight:600; font-size:10.5px; letter-spacing:.4px; color:var(--navy);
+    background:var(--cream); border:1px solid var(--line); padding:3px 9px; border-radius:20px;
+  }
+  .batch-date{ font-family:monospace; color:var(--ink-soft); font-size:11.5px; }
+  .batch-desc{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
+  .batch-rule{ height:1px; background:var(--line); margin:1px 0; }
+
+  .batch-deadline{ display:flex; align-items:baseline; gap:6px; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; }
+  .batch-deadline .num{ font-family:monospace; font-weight:600; font-size:13.5px; color:var(--gold); }
+  .batch-deadline.overdue{
+    background:var(--rust-bg,#F6E6E1); border-left:3px solid var(--rust,#A6432F);
+    padding:6px 8px; border-radius:2px; color:var(--rust,#A6432F); font-weight:600; font-size:11.5px;
+  }
+
+  .batch-quota-row{ display:flex; justify-content:space-between; font-size:12px; font-weight:600; color:var(--ink); }
+  .batch-quota-bar{ height:6px; background:var(--line); border-radius:20px; overflow:hidden; }
+  .batch-quota-bar > div{ height:100%; background:var(--navy); border-radius:20px; }
+
+  .batch-btn-main{
+    margin-top:2px; display:flex; align-items:center; justify-content:center; gap:6px;
+    background:var(--navy); color:#fff; text-decoration:none; font-weight:700; font-size:.88rem;
+    padding:11px 14px; border-radius:2px; transition:background .15s ease;
+  }
+  .batch-btn-main:hover{ background:var(--gold); color:var(--navy); }
+  .batch-btn-main.is-closed{ background:var(--line); color:var(--ink-soft); cursor:default; pointer-events:none; }
+  .batch-btn-wa{
+    display:flex; align-items:center; justify-content:center; gap:5px;
+    font-size:11.5px; color:var(--ink-soft); text-decoration:none; padding:2px; font-weight:600;
+  }
+  .batch-btn-wa:hover{ color:#3E7A5C; }
+
+  /* SECTION 3 — PROGRAMS */
+  .programs{
+    background:var(--paper);
+    padding:76px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .programs > .wrap > .eyebrow{color:var(--navy);}
+  .programs h2{font-size:2rem; margin:14px 0 14px;}
+  .programs .lead{max-width:700px; color:var(--ink-soft); margin-bottom:44px;}
+
+  .pillar{ margin-bottom:46px; }
+  .pillar:last-child{ margin-bottom:0; }
+  .pillar-header{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+    margin-bottom:22px;
+  }
+  .pillar-header h3{
+    font-size:1.4rem;
+    font-weight:600;
+  }
+  .pillar-header .count{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    font-family:'DM Sans',sans-serif;
+  }
+
+  .program-card{
+    border:1px solid var(--line);
+    background:var(--cream);
+    margin-bottom:12px;
+    overflow:hidden;
+    scroll-margin-top:24px;
+  }
+  .program-card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:18px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  .program-card summary::-webkit-details-marker{display:none;}
+  .program-card summary .title-block{flex:1;display:flex;align-items:center;gap:14px;}
+  .program-icon{
+    flex-shrink:0;
+    width:36px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--gold-soft);
+    border-radius:8px;
+    color:var(--navy);
+  }
+  .program-icon svg{width:20px;height:20px;}
+  .program-card summary .name{
+    font-weight:700;
+    font-size:1rem;
+    color:var(--navy);
+    display:block;
+    margin-bottom:4px;
+  }
+  .program-card summary .reg-badge{
+    font-size:.74rem;
+    color:var(--ink-soft);
+    background:var(--gold-soft);
+    display:inline-block;
+    padding:2px 9px;
+    border-radius:999px;
+  }
+  .program-card .chevron{
+    font-size:1.1rem;
+    color:var(--gold);
+    transition:transform .2s ease;
+    flex-shrink:0;
+  }
+  .program-card[open] .chevron{ transform:rotate(45deg); }
+  .program-card .body{
+    padding:0 22px 22px;
+    border-top:1px solid var(--line);
+  }
+  .program-card .body p{
+    font-size:.92rem;
+    color:var(--ink-soft);
+    margin-top:16px;
+  }
+  .program-card .output{
+    margin-top:14px;
+    padding:12px 16px;
+    background:var(--paper);
+    border-left:3px solid var(--gold);
+    font-size:.88rem;
+  }
+  .program-card .output strong{color:var(--navy);}
+
+  /* SECTION 4 — WHY INDEO */
+  .why{
+    padding:76px 0;
+  }
+  .why .eyebrow{color:var(--navy);}
+  .why h2{font-size:2rem; margin:14px 0 34px;}
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+  }
+  .why-item{ padding-right:8px; }
+  .why-item .num{
+    font-family:'Cormorant Garamond',serif;
+    font-size:2.4rem;
+    color:var(--gold-soft);
+    line-height:1;
+    display:block;
+    margin-bottom:10px;
+  }
+  .why-item h4{
+    font-family:'DM Sans',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    color:var(--navy);
+    margin-bottom:8px;
+  }
+  .why-item p{font-size:.88rem; color:var(--ink-soft);}
+  .why-cross{
+    margin-top:36px;
+    padding:16px 20px;
+    background:var(--paper);
+    border:1px dashed var(--line);
+    font-size:.88rem;
+    color:var(--ink-soft);
+  }
+  .why-cross a{color:var(--navy); font-weight:700; text-decoration:underline;}
+
+  /* SECTION 5 — INSIGHTS */
+  .insights{
+    background:var(--navy);
+    color:var(--cream);
+    padding:70px 0;
+  }
+  .insights .eyebrow{color:var(--gold-soft);}
+  .insights h2{color:var(--cream); font-size:2rem; margin:14px 0 30px;}
+  .insight-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:20px;
+  }
+  .insight-card{
+    border:1px solid rgba(250,248,243,.18);
+    padding:22px;
+    transition:border-color .15s ease;
+  }
+  .insight-card:hover{border-color:var(--gold);}
+  .insight-card .tag{
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--gold-soft);
+  }
+  .insight-card h4{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:1.2rem;
+    margin:10px 0 0;
+    color:var(--cream);
+  }
+  .insight-card a{
+    display:inline-block;
+    margin-top:14px;
+    font-size:.82rem;
+    color:var(--gold);
+    text-decoration:none;
+    font-weight:700;
+  }
+
+  /* SECTION 6 — CTA */
+  .cta{
+    padding:76px 0 88px;
+  }
+  .cta-box{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:4px solid var(--gold);
+    padding:44px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:40px;
+  }
+  .cta-box h2{font-size:1.8rem; margin-bottom:12px;}
+  .cta-box p{color:var(--ink-soft); font-size:.95rem;}
+  .contact-line{
+    margin-top:22px;
+    font-size:.92rem;
+  }
+  .contact-line div{margin-bottom:6px;}
+  .contact-line strong{color:var(--navy);}
+
+  form.inquiry{ display:flex; flex-direction:column; gap:14px; }
+  form.inquiry label{
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    display:block;
+  }
+  .visually-hidden{
+    position:absolute;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+  form.inquiry input, form.inquiry select, form.inquiry textarea{
+    width:100%;
+    border:1px solid var(--line);
+    background:var(--cream);
+    padding:11px 13px;
+    font-family:'DM Sans',sans-serif;
+    font-size:.92rem;
+    color:var(--ink);
+  }
+  form.inquiry textarea{resize:vertical; min-height:70px;}
+  form.inquiry button{
+    background:var(--navy);
+    color:var(--cream);
+    border:none;
+    padding:14px;
+    font-weight:700;
+    font-size:.92rem;
+    cursor:pointer;
+    margin-top:6px;
+    transition:background .15s ease;
+  }
+  form.inquiry button:hover{ background:var(--navy-soft); }
+
+  footer{
+    background:var(--navy);
+    color:rgba(250,248,243,.6);
+    padding:26px 0;
+    text-align:center;
+    font-size:.8rem;
+  }
+
+  @media (max-width:860px){
+    .context-grid, .why-grid, .insight-list{ grid-template-columns:1fr 1fr; }
+    .cta-box{ grid-template-columns:1fr; }
+    .hero-illustration{ display:none; }
+  }
+  @media (max-width:560px){
+    .context-grid, .why-grid, .insight-list{ grid-template-columns:1fr; }
+    .cta-box{ padding:28px 22px; }
+    .program-card summary{ flex-direction:column; align-items:flex-start; gap:8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://indeoinstitute.id/">InDeo Institute</a>
+    <ul class="nav-links">
+      <li><a href="https://indeoinstitute.id/">Home</a></li>
+      <li><a href="https://indeoinstitute.id/insights/">Insights</a></li>
+      <li><a href="https://excel365.indeoinstitute.id" target="_blank">Excel 365</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-illustration">
+    <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="210" cy="210" r="160" stroke="var(--gold)" stroke-opacity="0.18" stroke-width="1" fill="none"/>
+      <circle cx="210" cy="210" r="110" stroke="var(--gold)" stroke-opacity="0.25" stroke-width="1" fill="none"/>
+      <path d="M210 90l70 26v46c0 44-30 74-70 88-40-14-70-44-70-88v-46l70-26z" stroke="var(--gold)" stroke-opacity="0.55" stroke-width="1.6" fill="none" stroke-linejoin="round"/>
+      <path d="M175 210l25 25 55-55" stroke="var(--gold)" stroke-opacity="0.7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <g stroke="var(--gold)" stroke-opacity="0.45" stroke-width="1.6" stroke-linecap="round">
+        <line x1="120" y1="330" x2="120" y2="290"/>
+        <line x1="150" y1="330" x2="150" y2="270"/>
+        <line x1="180" y1="330" x2="180" y2="245"/>
+        <line x1="210" y1="330" x2="210" y2="225"/>
+      </g>
+      <circle cx="330" cy="140" r="4" fill="var(--gold)" fill-opacity="0.6"/>
+      <circle cx="300" cy="300" r="3" fill="var(--gold)" fill-opacity="0.5"/>
+      <circle cx="90" cy="150" r="3" fill="var(--gold)" fill-opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Program BPR / BPRS</span>
+    <h1>Kesiapan BPR/BPRS Menghadapi Roadmap RP2B 2024–2027</h1>
+    <p>InDeo Institute membantu BPR, BPR Syariah, dan lembaga keuangan mikro memahami dan menerapkan POJK/SEOJK terkini — melalui program training yang menghasilkan kertas kerja siap pakai untuk operasional harian.</p>
+    <div class="badge-roadmap">Selaras dengan Roadmap Pengembangan dan Penguatan Industri BPR/BPRS (RP2B) 2024–2027</div>
+    <br>
+    <a href="#cta" class="btn">Konsultasi Program</a>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="context">
+  <div class="wrap">
+    <span class="eyebrow">Mengapa Sekarang</span>
+    <h2>Industri BPR/BPRS Menghadapi Babak Baru Regulasi</h2>
+    <p class="lead">Sejak UU No. 4 Tahun 2023 tentang Pengembangan dan Penguatan Sektor Keuangan (UU P2SK), OJK menerbitkan serangkaian ketentuan baru yang mengubah cara BPR dan BPR Syariah dikelola — dari tata kelola, kualitas aset, permodalan, hingga pelaporan.</p>
+    <div class="context-grid">
+      <div class="context-card">
+        <span class="label">Tata Kelola</span>
+        <p>12 pilar wajib, termasuk aspek pemegang saham dan tata kelola syariah bagi BPRS.</p>
+      </div>
+      <div class="context-card">
+        <span class="label">Permodalan</span>
+        <p>Modal inti minimum Rp6 miliar tetap berlaku, dengan dorongan konsolidasi bagi yang belum memenuhi.</p>
+      </div>
+      <div class="context-card">
+        <span class="label">Kualitas Aset</span>
+        <p>Ketentuan baru soal CKPN, restrukturisasi, dan agunan yang diambil alih.</p>
+      </div>
+      <div class="context-card">
+        <span class="label">Pelaporan</span>
+        <p>Terintegrasi penuh melalui sistem APOLO, berkala maupun insidental.</p>
+      </div>
+      <div class="context-card">
+        <span class="label">Akses Pembiayaan UMKM</span>
+        <p>Kewajiban baru penyaluran pembiayaan UMKM yang mudah, tepat, cepat, murah, dan inklusif, dengan rencana strategis wajib masuk RBB 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BATCH TRAINING TERBUKA -->
+<section class="batch-section">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--gold);">Batch Webinar Terbuka</span>
+    <h2>Kalender Program Training BPR/BPRS</h2>
+    <p class="lead">Jadwal batch berjalan & akan datang — kuota dan tanggal diperbarui otomatis, tanpa perlu redeploy situs.</p>
+    <div id="batch-grid" class="batch-grid"><p id="batch-grid-status" style="color:var(--ink-soft);font-size:.9rem;">Memuat jadwal batch…</p></div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs">
+  <div class="wrap">
+    <span class="eyebrow">Program Training</span>
+    <h2>Program Berbasis Regulasi</h2>
+    <p class="lead">Setiap program menjawab satu ketentuan POJK/SEOJK secara spesifik. Peserta tidak hanya memahami isi regulasi, tetapi pulang membawa kertas kerja standar yang bisa langsung diadaptasi ke institusi masing-masing.</p>
+
+    <!-- PILLAR 1 -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h3>Penguatan Struktur &amp; Daya Saing</h3>
+        <span class="count">3 program</span>
+      </div>
+
+      <details class="program-card" id="tata-kelola">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></span><div class="text-block"><span class="name">Implementasi Tata Kelola 12 Pilar</span>
+            <span class="reg-badge">POJK 9/2024 · POJK 25/2024</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Memahami kewajiban tata kelola BPR/BPRS terbaru, dari peran pemegang saham hingga fungsi kepatuhan dan audit intern, termasuk lapisan tata kelola syariah bagi BPRS.</p>
+          <div class="output"><strong>Output:</strong> Template self-assessment tata kelola &amp; matriks pemenuhan 12 pilar</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/training-tata-kelola-bpr-bprs" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca detail lengkap program ini →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="manajemen-risiko">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></span><div class="text-block"><span class="name">Manajemen Risiko &amp; Anti-Fraud</span>
+            <span class="reg-badge">POJK 13/2015 · SEOJK 1/2019</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Membangun kerangka identifikasi, pengukuran, dan mitigasi risiko operasional serta kredit di lingkungan BPR/BPRS.</p>
+          <div class="output"><strong>Output:</strong> Template profil risiko &amp; register anti-fraud</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/manajemen-risiko-anti-fraud-bpr.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="permodalan">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></svg></span><div class="text-block"><span class="name">Kesiapan Permodalan &amp; Konsolidasi</span>
+            <span class="reg-badge">POJK 7/2026 · POJK 7/2024 · SEOJK 24/2025</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Menyusun strategi pemenuhan modal inti minimum dan kesiapan skenario konsolidasi atau merger bagi BPR/BPRS grup, termasuk menuangkannya ke dalam Rencana Bisnis (RBB) sesuai cakupan baru — penawaran umum efek, penyertaan modal, sinergi perbankan, dan jenis kantor.</p>
+          <div class="output"><strong>Output:</strong> Kertas kerja proyeksi modal inti, simulasi skenario merger, dan template bagian RBB terkait permodalan &amp; konsolidasi</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/training-permodalan-konsolidasi-bpr" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca detail lengkap program ini →</a></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- PILLAR 2 -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h3>Kualitas Aset &amp; Perkreditan</h3>
+        <span class="count">2 program</span>
+      </div>
+
+      <details class="program-card" id="kualitas-aset">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l4 4v14H7V3z"/><path d="M11 3v4h4"/><circle cx="12" cy="14" r="2.5"/><path d="M14 16l2 2"/></svg></span><div class="text-block"><span class="name">Kualitas Aset &amp; CKPN</span>
+            <span class="reg-badge">POJK 1/2024 · POJK 24/2024</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Menerapkan penilaian kualitas aset produktif dan nonproduktif, perhitungan CKPN, serta penanganan restrukturisasi sesuai ketentuan terbaru.</p>
+          <div class="output"><strong>Output:</strong> Template penilaian kualitas aset, perhitungan CKPN, dan restrukturisasi</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/training-kualitas-aset-ckpn-bpr-bprs" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca detail lengkap program ini →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="bmpk-bmpd">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0l-3-6z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0l-3-6z"/></svg></span><div class="text-block"><span class="name">BMPK/BMPD</span>
+            <span class="reg-badge">POJK 23/2022 · SEOJK 11/2023</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Memahami batas maksimum pemberian kredit/pembiayaan dan cara memonitornya secara berkelanjutan.</p>
+          <div class="output"><strong>Output:</strong> Kertas kerja monitoring BMPK/BMPD</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/bmpk-bmpd-bpr-bprs.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- PILLAR 3 -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h3>Pelaporan &amp; Kepatuhan</h3>
+        <span class="count">3 program</span>
+      </div>
+
+      <details class="program-card" id="pelaporan-apolo">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-1-7.87A5.5 5.5 0 0 1 16.5 8H17a4 4 0 0 1 1 7.87"/><path d="M12 12v7"/><path d="M9.5 14.5L12 12l2.5 2.5"/></svg></span><div class="text-block"><span class="name">Pelaporan Terintegrasi APOLO</span>
+            <span class="reg-badge">POJK 23/2024 · SEOJK 21/2024</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Menyusun dan merekonsiliasi laporan berkala maupun insidental sesuai standar pelaporan OJK terbaru.</p>
+          <div class="output"><strong>Output:</strong> Template rekonsiliasi laporan berkala &amp; insidental</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/pelaporan-terintegrasi-apolo-bpr.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="kepatuhan-audit">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6"/><path d="M9 12l2 2 4-4"/><path d="M9 17h4"/></svg></span><div class="text-block"><span class="name">Penguatan Fungsi Kepatuhan &amp; Audit Intern</span>
+            <span class="reg-badge">SEOJK 8/2025 · SEOJK 9/2025</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Membangun program kerja tahunan fungsi kepatuhan dan audit intern yang sesuai ekspektasi pengawasan OJK.</p>
+          <div class="output"><strong>Output:</strong> Working paper program kerja tahunan kepatuhan/audit intern</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/seojk-8-9-2025-kepatuhan-audit-intern-bpr.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="fit-proper">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.5 3.2-6 7-6s7 2.5 7 6"/><path d="M9.5 8.5l1.7 1.7 3-3.2"/></svg></span><div class="text-block"><span class="name">Kesiapan Fit &amp; Proper Test</span>
+            <span class="reg-badge">POJK 27/2016</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Mempersiapkan calon Direksi, Dewan Komisaris, dan DPS menghadapi penilaian kemampuan dan kepatutan OJK.</p>
+          <div class="output"><strong>Output:</strong> Checklist &amp; kertas kerja penilaian kemampuan-kepatutan</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/fit-and-proper-test-bpr-bprs.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- PILLAR 4 -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h3>Digitalisasi &amp; SDM</h3>
+        <span class="count">3 program</span>
+      </div>
+
+      <details class="program-card" id="ti-keamanan">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><rect x="9.3" y="11" width="5.4" height="4.2" rx="0.8"/><path d="M10.3 11V9.3a1.7 1.7 0 0 1 3.4 0V11"/></svg></span><div class="text-block"><span class="name">Tata Kelola &amp; Keamanan TI BPR/BPRS</span>
+            <span class="reg-badge">POJK 34/2025 · PADK 43/2025</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Membangun tata kelola teknologi informasi, manajemen risiko TI, keamanan informasi, Disaster Recovery Plan, serta ketahanan dan keamanan siber sesuai ketentuan pengganti POJK 75/2016 — termasuk kesiapan menghadapi masa transisi 1 tahun sejak diundangkan.</p>
+          <div class="output"><strong>Output:</strong> Template kebijakan tata kelola TI, kertas kerja manajemen risiko TI, dan checklist kesiapan Disaster Recovery Plan</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/training-tata-kelola-keamanan-ti-bpr-bprs" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca detail lengkap program ini →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="perlindungan-konsumen">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9 13c0-1.2 1-2 2-2s2 .5 2 1.5-1 1.2-1 2 M12 15.5c0-1 1-1.2 2-1.5s2-.8 2-2-1-2-2-2"/><circle cx="12" cy="11" r="1"/></svg></span><div class="text-block"><span class="name">Perlindungan Konsumen</span>
+            <span class="reg-badge">POJK 22/2023</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Menyusun kebijakan dan prosedur perlindungan konsumen sesuai standar sektor jasa keuangan.</p>
+          <div class="output"><strong>Output:</strong> Template SOP pengaduan &amp; mitigasi risiko konsumen</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/perlindungan-konsumen-bpr-bprs.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+
+      <details class="program-card" id="transformasi-digital">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M9.5 6.5a4 4 0 0 1 5 0"/><path d="M8 9a6 6 0 0 1 8 0"/></svg></span><div class="text-block"><span class="name">Transformasi Digital &amp; Layanan Keuangan Digital</span>
+            <span class="reg-badge">POJK 1/2022</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Mempersiapkan kerangka operasional untuk layanan keuangan tanpa kantor dan digitalisasi proses internal.</p>
+          <div class="output"><strong>Output:</strong> Kertas kerja kesiapan operasional digital</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/insights/transformasi-digital-lkd-bpr-bprs.html" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca artikel terkait →</a></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- PILLAR 5 -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h3>Penguatan Peran BPR/BPRS terhadap Wilayahnya</h3>
+        <span class="count">1 program</span>
+      </div>
+
+      <details class="program-card" id="umkm-pembiayaan">
+        <summary>
+          <div class="title-block">
+            <span class="program-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M5 9v10h14V9"/><path d="M10 19v-5h4v5"/></svg></span><div class="text-block"><span class="name">Kemudahan Akses Pembiayaan UMKM</span>
+            <span class="reg-badge">POJK 19/2025</span>
+            </div>
+          </div>
+          <span class="chevron">+</span>
+        </summary>
+        <div class="body">
+          <p>Menyusun kebijakan, prosedur, dan rencana strategis penyaluran pembiayaan UMKM sesuai prinsip mudah, tepat, cepat, murah, dan inklusif — termasuk kesiapan tata kelola dan manajemen risiko yang dipersyaratkan, serta penyusunan rencana bisnis untuk tahun 2026.</p>
+          <div class="output"><strong>Output:</strong> Template kebijakan &amp; prosedur pembiayaan UMKM, kertas kerja rencana strategis untuk RBB 2026, dan checklist kesiapan tata kelola &amp; manajemen risiko</div>
+          <p style="margin-top:12px;"><a href="https://indeoinstitute.id/training-pembiayaan-umkm-bpr-bprs" style="color:var(--navy);font-weight:700;text-decoration:underline;font-size:.88rem;">Baca detail lengkap program ini →</a></p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY INDEO -->
+<section class="why">
+  <div class="wrap">
+    <span class="eyebrow">Mengapa InDeo</span>
+    <h2>Mengapa BPR/BPRS Memilih InDeo Institute</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <span class="num">01</span>
+        <h4>Fokus Perbankan Sejak 2010</h4>
+        <p>Bukan penyedia training umum — seluruh program dirancang khusus untuk kebutuhan lembaga keuangan dan perbankan.</p>
+      </div>
+      <div class="why-item">
+        <span class="num">02</span>
+        <h4>Kertas Kerja Siap Pakai</h4>
+        <p>Setiap program menghasilkan template dan working paper standar yang bisa langsung diadopsi ke operasional Anda.</p>
+      </div>
+      <div class="why-item">
+        <span class="num">03</span>
+        <h4>Dapat Diselenggarakan In-House</h4>
+        <p>Program dapat difasilitasi langsung di kantor BPR/BPRS Anda, termasuk untuk institusi di luar Jakarta.</p>
+      </div>
+      <div class="why-item">
+        <span class="num">04</span>
+        <h4>Materi Mengikuti Regulasi Terkini</h4>
+        <p>Setiap program direview mengikuti perubahan POJK/SEOJK terbaru dari OJK.</p>
+      </div>
+    </div>
+    <div class="why-cross">
+      Butuh sertifikasi kompetensi SDM formal? Lihat program <a href="https://excel365.indeoinstitute.id" target="_blank">Sertifikasi Excel 365</a>.
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="insights">
+  <div class="wrap">
+    <span class="eyebrow">Bacaan Terkait</span>
+    <h2>Insights</h2>
+    <div class="insight-list">
+      <div class="insight-card">
+        <span class="tag">Tata Kelola</span>
+        <h4>Memahami POJK Tata Kelola 9/2024: 12 Pilar yang Wajib Diterapkan BPR/BPRS</h4>
+        <a href="https://indeoinstitute.id/insights/pojk-9-2024-tata-kelola-bpr.html">Baca artikel →</a>
+      </div>
+      <div class="insight-card">
+        <span class="tag">Permodalan</span>
+        <h4>Modal Inti Minimum Rp6 Miliar: Kesiapan Menghadapi Skenario Konsolidasi BPR</h4>
+        <a href="https://indeoinstitute.id/insights/modal-inti-konsolidasi-bpr.html">Baca artikel →</a>
+      </div>
+      <div class="insight-card">
+        <span class="tag">Kualitas Aset</span>
+        <h4>Kualitas Aset &amp; CKPN BPR Pasca POJK 1/2024: Panduan Praktis</h4>
+        <a href="https://indeoinstitute.id/insights/pojk-1-2024-kualitas-aset-ckpn-bpr.html">Baca artikel →</a>
+      </div>
+      <div class="insight-card">
+        <span class="tag">UMKM</span>
+        <h4>POJK 19/2025: Kesiapan BPR/BPRS Menghadapi Tenggat Kebijakan Pembiayaan UMKM</h4>
+        <a href="https://indeoinstitute.id/insights/pojk-19-2025-umkm-bpr.html">Baca artikel →</a>
+      </div>
+      <div class="insight-card">
+        <span class="tag">Teknologi Informasi</span>
+        <h4>POJK 34/2025: Tata Kelola dan Keamanan Siber TI Wajib BPR/BPRS</h4>
+        <a href="https://indeoinstitute.id/insights/pojk-34-2025-ti-keamanan-bpr.html">Baca artikel →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h2>Diskusikan Kebutuhan Institusi Anda</h2>
+        <p>Setiap BPR/BPRS memiliki tantangan regulasi yang berbeda. Hubungi kami untuk mendiskusikan program yang paling sesuai dengan kebutuhan institusi Anda.</p>
+        <div class="contact-line">
+          <div><strong>Telepon/WhatsApp:</strong> <a href="https://wa.me/6282211758899" target="_blank" style="color:var(--navy);text-decoration:underline;">+62 822-1175-8899</a></div>
+          <div><strong>Email:</strong> <a href="mailto:info@indeoinstitute.id" style="color:var(--navy);text-decoration:underline;">info@indeoinstitute.id</a></div>
+        </div>
+      </div>
+      <form class="inquiry" name="bpr-bprs-inquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="bpr-bprs-inquiry" />
+        <p class="visually-hidden">
+          <label>Jangan isi ini jika Anda manusia: <input name="bot-field" /></label>
+        </p>
+        <div>
+          <label for="inst">Nama Institusi</label>
+          <input type="text" id="inst" name="inst" placeholder="cth. BPR Sinar Mitra" required>
+        </div>
+        <div>
+          <label for="pic">Nama Penanggung Jawab (PIC)</label>
+          <input type="text" id="pic" name="pic" placeholder="cth. Budi Santoso" required>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="cth. budi@bprsarimanis.co.id" required>
+        </div>
+        <div>
+          <label for="phone">Nomor HP / WhatsApp</label>
+          <input type="tel" id="phone" name="phone" placeholder="cth. 0812-3456-7890" required>
+        </div>
+        <div>
+          <label for="jenis">Jenis Lembaga</label>
+          <select id="jenis" name="jenis">
+            <option>BPD</option>
+            <option>Bank Umum Konvensional</option>
+            <option>Bank Umum Syariah</option>
+            <option>Multifinance</option>
+            <option selected>BPR/BPRS</option>
+          </select>
+        </div>
+        <div>
+          <label for="need">Kebutuhan Program</label>
+          <textarea id="need" name="need" placeholder="Ceritakan kebutuhan training dan bisnis Anda" required></textarea>
+        </div>
+        <button type="submit">Kirim Permintaan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2010–2026 InDeo Institute &middot; All rights reserved.
+</footer>
+
+<script>
+  // Buka otomatis program card yang dituju kalau datang dari tautan artikel (#slug)
+  if (location.hash) {
+    var target = document.querySelector(location.hash);
+    if (target && target.tagName === 'DETAILS') {
+      target.open = true;
+      setTimeout(function(){ target.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
+    }
+  }
+</script>
+
+<script>
+(function(){
+  var WA_NUMBER = '6282211758899';
+  var MONTHS = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+
+  function fmtDateRange(start, end) {
+    var s = new Date(start + "T00:00:00");
+    var e = new Date(end + "T00:00:00");
+    var sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
+    if (sameMonth) return s.getDate() + "–" + e.getDate() + " " + MONTHS[e.getMonth()] + " " + e.getFullYear();
+    return s.getDate() + " " + MONTHS[s.getMonth()] + "–" + e.getDate() + " " + MONTHS[e.getMonth()] + " " + e.getFullYear();
+  }
+
+  function deadlineHTML(b) {
+    var program = b.program;
+    if (program.deadlineType === 'overdue') {
+      return '<div class="batch-deadline overdue">⚠️ Tenggat kebijakan sudah lewat — program bersifat catch-up</div>';
+    }
+    if (program.deadlineType === 'regulatory') {
+      return '<div class="batch-deadline"><span>Tenggat masa transisi:</span><span class="num">~' + b.daysUntilRegDeadline + ' hari lagi</span></div>';
+    }
+    var d = b.daysUntilStart;
+    return '<div class="batch-deadline"><span>Batch dimulai dalam</span><span class="num">' + (d >= 0 ? d + ' hari' : 'sudah berjalan') + '</span></div>';
+  }
+
+  function cardHTML(b) {
+    var program = b.program;
+    var dateRange = fmtDateRange(b.dateStart, b.dateEnd);
+    var waText = encodeURIComponent('Halo InDeo Institute, saya ingin tanya soal batch "' + program.title + '" (' + dateRange + ').');
+    var waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + waText;
+    var locationLabel = b.format === 'onsite' ? (b.venue || 'Onsite') : 'WEBINAR ONLINE';
+
+    var mainBtn = b.status === 'closed'
+      ? '<span class="batch-btn-main is-closed">Batch Ini Penuh — Gabung Waiting List</span>'
+      : '<a class="batch-btn-main" href="' + b.formUrl + '">Daftar Batch Ini</a>';
+
+    return (
+      '<div class="batch-card">' +
+        '<div class="batch-poster">' +
+          '<span class="track-tag">' + program.trackTag + '</span>' +
+          '<div>' +
+            '<div class="poster-title">' + program.title + '</div>' +
+            '<div class="reg-code">' + program.regCode + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="batch-body">' +
+          '<div class="batch-meta-row">' +
+            '<span class="batch-location-pill">' + locationLabel + '</span>' +
+            '<span class="batch-date">' + dateRange + '</span>' +
+          '</div>' +
+          '<p class="batch-desc">' + program.desc + '</p>' +
+          '<div class="batch-rule"></div>' +
+          deadlineHTML(b) +
+          '<div>' +
+            '<div class="batch-quota-row"><span>Kuota Terisi</span><span>' + b.quotaPct + '%</span></div>' +
+            '<div class="batch-quota-bar"><div style="width:' + b.quotaPct + '%"></div></div>' +
+          '</div>' +
+          mainBtn +
+          '<a class="batch-btn-wa" href="' + waLink + '" target="_blank" rel="noopener noreferrer">Ada pertanyaan? Chat via WhatsApp</a>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  var grid = document.getElementById('batch-grid');
+  fetch('/api/batches')
+    .then(function(r){ return r.json(); })
+    .then(function(batches){
+      if (!batches.length) {
+        grid.innerHTML = '<p style="color:var(--ink-soft);font-size:.9rem;">Belum ada batch terjadwal saat ini.</p>';
+        return;
+      }
+      batches.sort(function(a,b){ return a.dateStart.localeCompare(b.dateStart); });
+      grid.innerHTML = batches.map(cardHTML).join('');
+    })
+    .catch(function(){
+      grid.innerHTML = '<p style="color:var(--ink-soft);font-size:.9rem;">Jadwal batch belum bisa dimuat saat ini — coba refresh halaman.</p>';
+    });
+})();
+</script>
+
+</body>
+</html>

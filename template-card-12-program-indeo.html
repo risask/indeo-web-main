@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>InDeo Institute — Template Card 12 Program</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --navy: #12203B;
+  --navy-2: #1B3050;
+  --gold: #9C6B14;
+  --gold-bright: #C89B3C;
+  --teal: #4C7A73;
+  --rust: #A6432F;
+  --rust-bg: #F6E6E1;
+  --cream: #FBF9F4;
+  --cream-2: #F3EEE3;
+  --gray: #6B6B6B;
+  --line: #E4DFD3;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0; padding:48px 24px; background:#EFEBE1;
+  font-family:'IBM Plex Sans',sans-serif; display:flex; justify-content:center;
+}
+.wrap{ width:100%; max-width:1280px; }
+.section-label{
+  font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:3px;
+  color:var(--gold); font-weight:600; margin-bottom:8px;
+}
+h1{ font-family:'Source Serif 4',serif; font-size:32px; color:var(--navy); margin:0 0 8px 0; }
+.subhead{ font-size:14px; color:var(--gray); margin:0 0 32px 0; max-width:640px; line-height:1.6; }
+
+.grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media (max-width:980px){ .grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+
+.card{
+  background:var(--cream); border:1px solid var(--line); border-radius:4px;
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:box-shadow .2s ease, transform .2s ease;
+}
+.card:hover{ box-shadow:0 12px 28px rgba(18,32,59,0.12); transform:translateY(-2px); }
+
+.poster{
+  position:relative; height:118px;
+  background:
+    repeating-linear-gradient(to bottom, rgba(251,249,244,0.05) 0, rgba(251,249,244,0.05) 1px, transparent 1px, transparent 22px),
+    linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+  display:flex; flex-direction:column; justify-content:space-between; padding:12px 14px;
+}
+.poster .track-tag{
+  align-self:flex-start; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.3px;
+  color:var(--navy); background:var(--gold-bright); padding:3px 8px; border-radius:2px; font-weight:600;
+}
+.poster .reg-code{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.5px; color:rgba(251,249,244,0.7); }
+.poster .poster-title{ font-family:'Source Serif 4',serif; font-size:16.5px; font-weight:700; color:var(--cream); line-height:1.25; }
+
+.body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
+
+.meta-row{ display:flex; align-items:center; justify-content:space-between; font-size:12px; }
+.location-pill{
+  font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:0.4px;
+  color:var(--navy); background:var(--cream-2); border:1px solid var(--line); padding:3px 9px; border-radius:20px;
+}
+.date{ font-family:'IBM Plex Mono',monospace; color:var(--gray); font-size:11.5px; }
+
+.title{ font-family:'Source Serif 4',serif; font-weight:700; font-size:17.5px; color:var(--navy); margin:0; line-height:1.3; min-height:46px; }
+.desc{ font-size:12.5px; line-height:1.5; color:#4A4A4A; margin:0; flex:1; }
+
+.rule{ height:1px; background:var(--line); margin:1px 0; }
+
+.deadline-box{ display:flex; align-items:baseline; gap:6px; font-size:12px; color:var(--gray); flex-wrap:wrap; }
+.deadline-box .num{ font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13.5px; color:var(--gold); }
+
+.deadline-box.overdue{
+  background:var(--rust-bg); border-left:3px solid var(--rust);
+  padding:6px 8px; border-radius:2px; color:var(--rust); font-weight:600; font-size:11.5px;
+}
+
+.quota-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--navy); font-weight:600; }
+.quota-row .pct{ color:var(--teal); font-family:'IBM Plex Mono',monospace; }
+.bar-track{ height:6px; background:var(--cream-2); border-radius:6px; overflow:hidden; }
+.bar-fill{ height:100%; background:var(--teal); border-radius:6px; }
+
+.cta{
+  margin-top:4px; display:block; text-align:center; text-decoration:none;
+  font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:13px; color:var(--cream);
+  background:var(--navy); padding:10px 14px; border-radius:3px; transition:background .15s ease;
+}
+.cta:hover{ background:var(--gold); color:var(--navy); }
+
+.legend{
+  margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+  display:flex; gap:28px; flex-wrap:wrap; font-size:12.5px; color:var(--gray);
+}
+.legend b{ color:var(--navy); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="section-label">BATCH WEBINAR TERBUKA</div>
+  <h1>Kalender Program Training BPR/BPRS</h1>
+  <p class="subhead">Template generik untuk seluruh 12 program — field tenggat menyesuaikan status regulasi tiap program: countdown regulasi (aktif), badge tenggat lewat (catch-up), atau countdown batch (regulasi established).</p>
+
+  <div class="grid">
+
+    <!-- 1. Tata Kelola 12 Pilar -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Tata Kelola 12 Pilar</div><div class="reg-code">POJK 9/2024 · 25/2024</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">25–28 Agu 2026</span></div>
+        <p class="title">Batch Agustus — Tata Kelola 12 Pilar</p>
+        <p class="desc">4 sesi + workshop self-assessment 12 pilar, termasuk Modul BPRS (Pilar 12).</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">19 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">55%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:55%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 2. Kualitas Aset & CKPN -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Kualitas Aset &amp; CKPN</div><div class="reg-code">POJK 1/2024 · 24/2024</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">18–19 Agu 2026</span></div>
+        <p class="title">Batch Agustus — Kualitas Aset &amp; CKPN</p>
+        <p class="desc">3 sesi termasuk workshop template penilaian aset &amp; simulasi CKPN, plus Modul BPRS.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">12 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">68%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:68%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 3. Manajemen Risiko & Anti-Fraud -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Manajemen Risiko &amp; Anti-Fraud</div><div class="reg-code">POJK 13/2015 · SEOJK 1/2019</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">1–3 Sep 2026</span></div>
+        <p class="title">Batch September — Manajemen Risiko &amp; Anti-Fraud</p>
+        <p class="desc">3 sesi termasuk workshop profil risiko &amp; register anti-fraud institusi.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">26 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">30%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:30%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 4. Permodalan & Konsolidasi -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Permodalan &amp; Konsolidasi</div><div class="reg-code">POJK 7/2026 · 7/2024</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">8–10 Sep 2026</span></div>
+        <p class="title">Batch September — Permodalan &amp; Konsolidasi</p>
+        <p class="desc">3 sesi, workshop proyeksi modal inti &amp; simulasi skenario merger.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">33 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">80%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 5. BMPK/BMPD -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">BMPK/BMPD</div><div class="reg-code">POJK 23/2022 · SEOJK 11/2023</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">22–24 Sep 2026</span></div>
+        <p class="title">Batch September — BMPK/BMPD</p>
+        <p class="desc">3 sesi, workshop kertas kerja monitoring BMPK/BMPD berbasis portofolio.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">47 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">40%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:40%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 6. Pelaporan APOLO -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Pelaporan Terintegrasi APOLO</div><div class="reg-code">POJK 23/2024 · SEOJK 21/2024</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">29 Sep–1 Okt 2026</span></div>
+        <p class="title">Batch Akhir September — Pelaporan APOLO</p>
+        <p class="desc">3 sesi, workshop template rekonsiliasi laporan berkala &amp; insidental.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">54 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">52%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:52%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 7. Fungsi Kepatuhan & Audit Intern -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Fungsi Kepatuhan &amp; Audit Intern</div><div class="reg-code">SEOJK 8/2025 · 9/2025</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">6–8 Okt 2026</span></div>
+        <p class="title">Batch Oktober — Kepatuhan &amp; Audit Intern</p>
+        <p class="desc">3 sesi, workshop working paper program kerja tahunan kepatuhan &amp; audit intern.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">61 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">35%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:35%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 8. Fit & Proper Test -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · SUBSTANTIF</span>
+        <div><div class="poster-title">Kesiapan Fit &amp; Proper Test</div><div class="reg-code">POJK 27/2016</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">13–15 Okt 2026</span></div>
+        <p class="title">Batch Oktober — Fit &amp; Proper Test</p>
+        <p class="desc">3 sesi, simulasi wawancara &amp; workshop checklist dokumen pribadi calon pengurus.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">68 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">60%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:60%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 9. Tata Kelola & Keamanan TI — REGULATORY COUNTDOWN -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Tata Kelola &amp; Keamanan TI</div><div class="reg-code">POJK 34/2025 · PADK 43/2025</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">2–4 Sep 2026</span></div>
+        <p class="title">Batch September — Tata Kelola &amp; Keamanan TI</p>
+        <p class="desc">3 sesi, workshop DRP &amp; kebijakan tata kelola TI. Co-facilitator eksternal keamanan siber.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Tenggat masa transisi:</span><span class="num">~132 hari lagi</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">45%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:45%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 10. Perlindungan Konsumen -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Perlindungan Konsumen</div><div class="reg-code">POJK 22/2023</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">20–22 Okt 2026</span></div>
+        <p class="title">Batch Oktober — Perlindungan Konsumen</p>
+        <p class="desc">3 sesi, workshop template SOP pengaduan &amp; mitigasi risiko konsumen.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">75 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">25%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 11. Transformasi Digital & LKD -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Transformasi Digital &amp; LKD</div><div class="reg-code">POJK 1/2022</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">27–29 Okt 2026</span></div>
+        <p class="title">Batch Oktober — Transformasi Digital &amp; LKD</p>
+        <p class="desc">3 sesi, workshop kertas kerja kesiapan operasional layanan keuangan digital.</p>
+        <div class="rule"></div>
+        <div class="deadline-box"><span>Batch dimulai dalam</span><span class="num">82 hari</span></div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">38%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:38%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+    <!-- 12. Pembiayaan UMKM — OVERDUE BADGE -->
+    <div class="card">
+      <div class="poster">
+        <span class="track-tag">TRACK B · TEKNIS</span>
+        <div><div class="poster-title">Pembiayaan UMKM</div><div class="reg-code">POJK 19/2025</div></div>
+      </div>
+      <div class="body">
+        <div class="meta-row"><span class="location-pill">WEBINAR ONLINE</span><span class="date">3–5 Nov 2026</span></div>
+        <p class="title">Batch November — Kemudahan Akses Pembiayaan UMKM</p>
+        <p class="desc">3 sesi, workshop kebijakan pembiayaan UMKM &amp; kertas kerja RBB 2026.</p>
+        <div class="rule"></div>
+        <div class="deadline-box overdue">⚠️ Tenggat kebijakan sudah lewat — program bersifat catch-up</div>
+        <div><div class="quota-row"><span>Kuota Terisi</span><span class="pct">90%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div></div>
+        <a href="#" class="cta">Daftar Batch Ini →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <div><b>Tipe A — Countdown Regulasi:</b> hanya TI (tenggat aktif ke depan)</div>
+    <div><b>Tipe B — Badge Overdue:</b> hanya UMKM (tenggat sudah lewat)</div>
+    <div><b>Tipe C — Countdown Batch:</b> 10 program lain (regulasi established)</div>
+  </div>
+</div>
+</body>
+</html>

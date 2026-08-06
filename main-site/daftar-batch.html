@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Daftar Batch Training — InDeo Institute</title>
+<meta name="robots" content="noindex">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-382CYXS7M1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-382CYXS7M1');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-soft:#16305a;
+    --gold:#C9A84C;
+    --gold-soft:#e4d3a1;
+    --cream:#FAF8F3;
+    --paper:#FFFFFF;
+    --ink:#1c2430;
+    --ink-soft:#5b6472;
+    --line:#e4e0d4;
+    --rust:#A6432F;
+    --rust-bg:#F6E6E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  [hidden]{display:none !important;}
+  body{font-family:'DM Sans', sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;}
+  h1,h2,h3,.display{font-family:'Cormorant Garamond', serif;color:var(--navy);font-weight:600;}
+  a{color:inherit;}
+  .accent-bar{height:3px;background:linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);}
+  nav{background:var(--navy);padding:1.1rem 0;}
+  .nav-inner{max-width:720px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;text-decoration:none;}
+  .nav-links{display:flex;gap:1.5rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;}
+  .nav-links a:hover{color:var(--gold);}
+  @media (max-width:560px){ .nav-links{gap:1rem;} .nav-links a{font-size:11px;} }
+  .wrap{max-width:720px;margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:'DM Sans', sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;font-weight:700;color:var(--gold);}
+
+  main{padding:56px 0 88px;}
+  h1{font-size:clamp(1.7rem, 4vw, 2.3rem); margin:12px 0 28px;}
+
+  .summary-box{
+    background:var(--navy); color:var(--cream); border-radius:4px;
+    padding:24px 26px; margin-bottom:32px;
+  }
+  .summary-box .track{
+    font-family:'DM Sans',sans-serif; font-size:10.5px; letter-spacing:1.3px; text-transform:uppercase;
+    color:var(--navy); background:var(--gold-soft); display:inline-block; padding:3px 9px; border-radius:2px; font-weight:700; margin-bottom:10px;
+  }
+  .summary-box h2{color:var(--cream); font-size:1.4rem; margin-bottom:6px;}
+  .summary-box .reg{font-family:monospace; font-size:.78rem; color:rgba(250,248,243,.65); margin-bottom:16px;}
+  .summary-row{display:flex; flex-wrap:wrap; gap:18px; font-size:.88rem; color:rgba(250,248,243,.9);}
+  .summary-row div{display:flex; align-items:center; gap:6px;}
+  .summary-row strong{color:var(--gold-soft); font-weight:600;}
+
+  .notice{
+    background:var(--rust-bg); border-left:3px solid var(--rust); color:var(--rust);
+    padding:18px 20px; border-radius:2px; font-size:.92rem; margin-bottom:24px;
+  }
+  .notice a{font-weight:700; text-decoration:underline;}
+
+  form.registration{display:flex; flex-direction:column; gap:16px;}
+  form.registration label{font-size:.85rem; font-weight:600; color:var(--navy); margin-bottom:5px; display:block;}
+  form.registration input, form.registration select, form.registration textarea{
+    width:100%; border:1px solid var(--line); border-radius:2px; padding:11px 12px;
+    font-family:'DM Sans',sans-serif; font-size:.92rem; background:var(--paper); color:var(--ink);
+  }
+  form.registration textarea{min-height:96px; resize:vertical;}
+  form.registration input:focus, form.registration select:focus, form.registration textarea:focus{
+    outline:none; border-color:var(--gold);
+  }
+  .visually-hidden{position:absolute; left:-9999px;}
+  button[type="submit"]{
+    display:inline-block; background:var(--gold); color:var(--navy); font-weight:700;
+    padding:14px 30px; border:none; border-radius:2px; font-size:.95rem; letter-spacing:.02em;
+    cursor:pointer; margin-top:8px;
+  }
+  button[type="submit"]:hover{ transform:translateY(-1px); }
+  .fine-print{font-size:.78rem; color:var(--ink-soft); margin-top:4px;}
+
+  footer{padding:32px 0; text-align:center; font-size:.8rem; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://indeoinstitute.id/">InDeo Institute</a>
+    <ul class="nav-links">
+      <li><a href="/bpr-bprs">Program BPR/BPRS</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <div class="eyebrow">Pendaftaran Batch</div>
+    <h1>Konfirmasi Data Pendaftaran</h1>
+
+    <div id="summary-box" class="summary-box" hidden>
+      <span class="track" id="s-track"></span>
+      <h2 id="s-title"></h2>
+      <div class="reg" id="s-reg"></div>
+      <div class="summary-row">
+        <div id="s-date"></div>
+        <div id="s-location"></div>
+      </div>
+    </div>
+
+    <div id="notice-missing" class="notice" hidden>
+      Pilih program dari halaman Program BPR/BPRS terlebih dahulu, lalu klik "Daftar Batch Ini" pada batch yang Anda inginkan.
+      <br><a href="/bpr-bprs">← Kembali ke Halaman Program BPR/BPRS</a>
+    </div>
+
+    <div id="notice-notfound" class="notice" hidden>
+      Batch yang dituju tidak ditemukan (mungkin sudah tidak tersedia atau tautan tidak valid).
+      <br><a href="/bpr-bprs">← Kembali ke Halaman Program BPR/BPRS</a>
+    </div>
+
+    <form id="reg-form" class="registration" name="daftar-batch-training" method="POST" action="/daftar-batch-diterima.html" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="daftar-batch-training" />
+      <p class="visually-hidden">
+        <label>Jangan isi ini jika Anda manusia: <input name="bot-field" /></label>
+      </p>
+      <input type="hidden" name="program" id="f-program" value="" />
+      <input type="hidden" name="batch" id="f-batch" value="" />
+      <input type="hidden" name="program-title" id="f-program-title" value="" />
+      <input type="hidden" name="batch-dates" id="f-batch-dates" value="" />
+
+      <div>
+        <label for="name">Nama Lengkap</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="jabatan">Jabatan</label>
+        <input type="text" id="jabatan" name="jabatan" required>
+      </div>
+      <div>
+        <label for="institusi">Institusi</label>
+        <input type="text" id="institusi" name="institusi" required>
+      </div>
+      <div>
+        <label for="jenis">Jenis Lembaga</label>
+        <select id="jenis" name="jenis" required>
+          <option>BPD</option>
+          <option>Bank Umum Konvensional</option>
+          <option>Bank Umum Syariah</option>
+          <option>Multifinance</option>
+          <option selected>BPR/BPRS</option>
+        </select>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="phone">No. HP/WhatsApp</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9+\-\s]{8,20}" required>
+      </div>
+      <div>
+        <label for="catatan">Catatan Tambahan (opsional)</label>
+        <textarea id="catatan" name="catatan" placeholder="Kebutuhan khusus, pertanyaan, dst."></textarea>
+      </div>
+
+      <button type="submit">Kirim Pendaftaran</button>
+      <p class="fine-print">Tim InDeo akan menghubungi Anda via WhatsApp/email dalam 1×24 jam untuk konfirmasi & instruksi pembayaran.</p>
+    </form>
+  </div>
+</main>
+
+<footer>&copy; 2010–2026 InDeo Institute &middot; All rights reserved.</footer>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var programId = params.get('program');
+  var batchId = params.get('batch');
+
+  var summaryBox = document.getElementById('summary-box');
+  var noticeMissing = document.getElementById('notice-missing');
+  var noticeNotfound = document.getElementById('notice-notfound');
+  var form = document.getElementById('reg-form');
+
+  if (!programId || !batchId) {
+    noticeMissing.hidden = false;
+    return;
+  }
+
+  var MONTHS = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+  function fmtDateRange(start, end) {
+    var s = new Date(start + "T00:00:00");
+    var e = new Date(end + "T00:00:00");
+    var sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
+    if (sameMonth) return s.getDate() + "–" + e.getDate() + " " + MONTHS[e.getMonth()] + " " + e.getFullYear();
+    return s.getDate() + " " + MONTHS[s.getMonth()] + "–" + e.getDate() + " " + MONTHS[e.getMonth()] + " " + e.getFullYear();
+  }
+
+  fetch('/api/batches')
+    .then(function(r){ return r.json(); })
+    .then(function(batches){
+      var match = batches.find(function(b){ return b.programId === programId && b.id === batchId; });
+      if (!match) {
+        noticeNotfound.hidden = false;
+        return;
+      }
+      var dateRange = fmtDateRange(match.dateStart, match.dateEnd);
+      document.getElementById('s-track').textContent = match.program.trackTag;
+      document.getElementById('s-title').textContent = match.program.title;
+      document.getElementById('s-reg').textContent = match.program.regCode;
+      document.getElementById('s-date').innerHTML = '<strong>Tanggal:</strong> ' + dateRange;
+      document.getElementById('s-location').innerHTML = '<strong>Lokasi:</strong> ' + (match.format === 'onsite' ? (match.venue || 'Onsite') : 'Webinar Online');
+      summaryBox.hidden = false;
+
+      document.getElementById('f-program').value = programId;
+      document.getElementById('f-batch').value = batchId;
+      document.getElementById('f-program-title').value = match.program.title;
+      document.getElementById('f-batch-dates').value = dateRange;
+
+      form.hidden = false;
+
+      form.addEventListener('submit', function(){
+        try {
+          sessionStorage.setItem('indeo-daftar-batch-confirm', JSON.stringify({
+            programTitle: match.program.title,
+            dateRange: dateRange
+          }));
+        } catch (e) { /* sessionStorage tidak tersedia — halaman konfirmasi pakai teks generik */ }
+      });
+    })
+    .catch(function(){
+      noticeNotfound.hidden = false;
+    });
+})();
+</script>
+
+</body>
+</html>
