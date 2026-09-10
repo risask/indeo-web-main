@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<title>Cari — InDeo Institute</title>
+<meta name="robots" content="noindex, follow">
+<!-- Google tag (gtag.js) — konsisten dengan indeoinstitute.id -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-382CYXS7M1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-382CYXS7M1');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/_pagefind/pagefind-ui.css">
+<style>
+  :root{
+    --navy:#0B1F3A;
+    --navy-soft:#16305a;
+    --gold:#C9A84C;
+    --gold-soft:#e4d3a1;
+    --cream:#FAF8F3;
+    --paper:#FFFFFF;
+    --ink:#1c2430;
+    --ink-soft:#5b6472;
+    --line:#e4e0d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'DM Sans', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    min-height:100vh;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--navy);
+    font-weight:600;
+  }
+  a{color:inherit;}
+  .accent-bar{
+    height:3px;
+    background:linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
+  }
+  nav{background:var(--navy);padding:1.1rem 0;}
+  .nav-inner{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;text-decoration:none;}
+  .nav-links{display:flex;gap:1.5rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;}
+  .nav-links a:hover{color:var(--gold);}
+  @media (max-width:560px){
+    .nav-links{gap:1rem;}
+    .nav-links a{font-size:11px;}
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .search-hero{padding:3.5rem 0 1rem;}
+  .eyebrow{
+    font-family:'DM Sans', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--gold);
+    margin-bottom:.6rem;
+  }
+  .search-hero h1{font-size:2.2rem;margin-bottom:.5rem;}
+  .search-hero p{color:var(--ink-soft);}
+  .search-shell{padding:1.5rem 0 5rem;}
+
+  /* Pagefind UI — selaraskan dengan palet InDeo */
+  .pagefind-ui{--pagefind-ui-primary:var(--navy);--pagefind-ui-text:var(--ink);--pagefind-ui-background:var(--paper);--pagefind-ui-border:var(--line);--pagefind-ui-tag:var(--cream);--pagefind-ui-font:'DM Sans', sans-serif;}
+  .pagefind-ui__search-input{border-radius:6px;}
+  .pagefind-ui__result{border-radius:8px;}
+  .pagefind-ui__result-title a{color:var(--navy);}
+  .pagefind-ui__result-link{color:var(--navy);}
+
+  footer{background:var(--navy);color:rgba(255,255,255,.7);padding:2rem 0;text-align:center;font-size:.85rem;}
+  footer a{color:var(--gold-soft);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="accent-bar"></div>
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">InDeo Institute</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/insights/">Insights</a></li>
+      <li><a href="/bpr-bprs">BPR/BPRS</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap search-hero">
+  <div class="eyebrow">Pencarian</div>
+  <h1>Cari di InDeo Institute</h1>
+  <p>Cari program training, artikel Insights, dan halaman lain di situs ini.</p>
+</div>
+
+<div class="wrap search-shell">
+  <div id="search"></div>
+</div>
+
+<footer>
+  &copy; <span id="year"></span> InDeo Institute — PT Indeo Sukses Asia. <a href="/">Kembali ke beranda</a>
+</footer>
+
+<script src="/_pagefind/pagefind-ui.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  window.addEventListener('DOMContentLoaded', () => {
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+      excerptLength: 20,
+      translations: {
+        placeholder: "Cari program, artikel, atau halaman...",
+        clear_search: "Hapus",
+        load_more: "Muat lebih banyak",
+        search_label: "Cari",
+        filters_label: "Filter",
+        zero_results: "Tidak ada hasil untuk [SEARCH_TERM]",
+        many_results: "[COUNT] hasil untuk [SEARCH_TERM]",
+        one_result: "[COUNT] hasil untuk [SEARCH_TERM]",
+        alt_search: "Tidak ada hasil untuk [SEARCH_TERM]. Menampilkan hasil untuk [DIFFERENT_TERM].",
+        search_suggestion: "Tidak ada hasil untuk [SEARCH_TERM]. Coba salah satu:",
+        searching: "Mencari [SEARCH_TERM]..."
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
