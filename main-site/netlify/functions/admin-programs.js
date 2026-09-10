@@ -1,7 +1,7 @@
-// GET/PUT /api/admin/batches — panel admin: baca semua batch (termasuk draft) & simpan perubahan.
+// GET/POST/PUT/DELETE /api/admin/programs — panel admin: kelola daftar program training.
 // Digate Netlify Identity — lihat lib/auth.js untuk detail & catatan verifikasi.
-import { getAllBatches, getAllPrograms, upsertBatch, deleteBatch, getBatchById } from "./lib/blobStore.js";
-import { validateBatch } from "./lib/schema.js";
+import { getAllPrograms, upsertProgram, deleteProgram } from "./lib/blobStore.js";
+import { validateProgram, slugify } from "./lib/schema.js";
 import { requireAdmin, AuthError } from "./lib/auth.js";
 
 export default async (req) => {
@@ -15,8 +15,8 @@ export default async (req) => {
   }
 
   if (req.method === "GET") {
-    const batches = await getAllBatches();
-    return new Response(JSON.stringify(batches), {
+    const programs = await getAllPrograms();
+    return new Response(JSON.stringify(programs), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -30,29 +30,26 @@ export default async (req) => {
       return new Response(JSON.stringify({ error: "Body harus JSON valid" }), { status: 400 });
     }
 
-    if (!input.programId || !input.dateStart) {
-      return new Response(JSON.stringify({ error: "programId dan dateStart wajib diisi" }), { status: 422 });
+    if (!input.title) {
+      return new Response(JSON.stringify({ error: "title wajib diisi" }), { status: 422 });
     }
-    const id = `${input.programId}-${input.dateStart.slice(0, 7)}`;
-    if (await getBatchById(id)) {
-      return new Response(JSON.stringify({ error: `Batch untuk program ini di bulan yang sama sudah ada (${id}) — edit yang sudah ada saja` }), { status: 409 });
-    }
-
-    const batch = {
-      ...input,
-      id,
-      registeredCount: 0,
-      formUrl: `/daftar-batch?program=${input.programId}&batch=${id}`,
-    };
-
     const programs = await getAllPrograms();
+    const existingIds = new Set(programs.map((p) => p.id));
+    let id = slugify(input.title);
+    let suffix = 2;
+    while (existingIds.has(id)) {
+      id = `${slugify(input.title)}-${suffix}`;
+      suffix += 1;
+    }
+
+    const program = { ...input, id };
     try {
-      validateBatch(batch, new Set(programs.map((p) => p.id)));
+      validateProgram(program, existingIds);
     } catch (err) {
       return new Response(JSON.stringify({ error: err.message }), { status: 422 });
     }
 
-    const saved = await upsertBatch(batch);
+    const saved = await upsertProgram(program);
     return new Response(JSON.stringify(saved), {
       status: 201,
       headers: { "Content-Type": "application/json" },
@@ -60,21 +57,20 @@ export default async (req) => {
   }
 
   if (req.method === "PUT") {
-    let batch;
+    let program;
     try {
-      batch = await req.json();
+      program = await req.json();
     } catch {
       return new Response(JSON.stringify({ error: "Body harus JSON valid" }), { status: 400 });
     }
 
-    const programs = await getAllPrograms();
     try {
-      validateBatch(batch, new Set(programs.map((p) => p.id)));
+      validateProgram(program);
     } catch (err) {
       return new Response(JSON.stringify({ error: err.message }), { status: 422 });
     }
 
-    const saved = await upsertBatch(batch);
+    const saved = await upsertProgram(program);
     return new Response(JSON.stringify(saved), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -87,9 +83,10 @@ export default async (req) => {
       return new Response(JSON.stringify({ error: "Parameter id wajib diisi" }), { status: 400 });
     }
     try {
-      await deleteBatch(id);
+      await deleteProgram(id);
     } catch (err) {
-      return new Response(JSON.stringify({ error: err.message }), { status: 404 });
+      const status = err.message.includes("masih dipakai") ? 409 : 404;
+      return new Response(JSON.stringify({ error: err.message }), { status });
     }
     return new Response(null, { status: 204 });
   }
@@ -97,4 +94,4 @@ export default async (req) => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
-export const config = { path: "/api/admin/batches" };
+export const config = { path: "/api/admin/programs" };

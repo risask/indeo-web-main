@@ -1,7 +1,6 @@
 // GET /api/batches — publik, baca-saja. Gabung data batch (Blobs) + data program (statis),
 // hitung quotaPct & hariTersisa on the fly, sembunyikan batch berstatus draft.
-import { getAllBatches } from "./lib/blobStore.js";
-import { getProgram } from "./lib/programs.js";
+import { getAllBatches, getAllPrograms } from "./lib/blobStore.js";
 import { computeQuotaPct, daysUntil } from "./lib/schema.js";
 
 export default async (req) => {
@@ -9,12 +8,13 @@ export default async (req) => {
     return new Response("Method Not Allowed", { status: 405 });
   }
 
-  const batches = await getAllBatches();
+  const [batches, programs] = await Promise.all([getAllBatches(), getAllPrograms()]);
+  const programById = new Map(programs.map((p) => [p.id, p]));
 
   const result = batches
     .filter((b) => b.status !== "draft")
     .map((b) => {
-      const program = getProgram(b.programId);
+      const program = programById.get(b.programId) || null;
       return {
         ...b,
         quotaPct: computeQuotaPct(b),

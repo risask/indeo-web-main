@@ -1,15 +1,15 @@
-import { PROGRAMS } from "./programs.js";
-
-const PROGRAM_IDS = new Set(PROGRAMS.map((p) => p.id));
 const FORMATS = new Set(["online", "onsite"]);
 const STATUSES = new Set(["open", "closed", "draft"]);
+const DEADLINE_TYPES = new Set(["batch", "regulatory", "overdue"]);
 
-// Validasi satu record batch. Melempar Error dengan pesan field-level kalau tidak valid.
-export function validateBatch(batch) {
+// Validasi satu record batch. `validProgramIds` adalah Set programId yang saat ini ada di
+// Blobs (dinamis, dikelola lewat panel admin — bukan lagi konstanta statis). Melempar Error
+// dengan pesan field-level kalau tidak valid.
+export function validateBatch(batch, validProgramIds) {
   const errors = [];
 
   if (!batch.id || typeof batch.id !== "string") errors.push("id wajib diisi (slug string)");
-  if (!batch.programId || !PROGRAM_IDS.has(batch.programId)) errors.push(`programId tidak valid: ${batch.programId}`);
+  if (!batch.programId || !validProgramIds.has(batch.programId)) errors.push(`programId tidak valid: ${batch.programId}`);
   if (!batch.dateStart || !/^\d{4}-\d{2}-\d{2}$/.test(batch.dateStart)) errors.push("dateStart wajib format YYYY-MM-DD");
   if (!batch.dateEnd || !/^\d{4}-\d{2}-\d{2}$/.test(batch.dateEnd)) errors.push("dateEnd wajib format YYYY-MM-DD");
   if (batch.dateStart && batch.dateEnd && batch.dateEnd < batch.dateStart) errors.push("dateEnd harus >= dateStart");
@@ -37,4 +37,34 @@ export function daysUntil(dateStr) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return Math.ceil((target - today) / 86400000);
+}
+
+// Validasi satu record program. `existingIds` (Set) dipakai untuk cegah slug id bentrok saat
+// bikin program baru — undefined kalau ini validasi untuk update program yang sudah ada.
+export function validateProgram(program, existingIds) {
+  const errors = [];
+
+  if (!program.id || typeof program.id !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(program.id)) {
+    errors.push("id wajib diisi (slug huruf kecil, angka, strip)");
+  } else if (existingIds && existingIds.has(program.id)) {
+    errors.push(`id sudah dipakai program lain: ${program.id}`);
+  }
+  if (!program.title || typeof program.title !== "string") errors.push("title wajib diisi");
+  if (!DEADLINE_TYPES.has(program.deadlineType)) errors.push(`deadlineType tidak valid: ${program.deadlineType}`);
+  if (program.deadlineType === "regulatory" && (!program.regDeadline || !/^\d{4}-\d{2}-\d{2}$/.test(program.regDeadline))) {
+    errors.push("regDeadline wajib format YYYY-MM-DD kalau deadlineType = regulatory");
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join("; "));
+  }
+  return true;
+}
+
+export function slugify(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }

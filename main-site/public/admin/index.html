@@ -29,7 +29,9 @@
   }
   header button:hover{border-color:var(--gold);color:var(--gold);}
 
-  main{max-width:1100px;margin:0 auto;padding:32px 24px 80px;}
+  main{max-width:1200px;margin:0 auto;padding:32px 24px 80px;}
+  section{margin-bottom:48px;}
+  section h2{font-size:1.3rem;margin-bottom:4px;}
 
   #gate{
     max-width:420px;margin:80px auto;text-align:center;background:var(--paper);
@@ -41,10 +43,26 @@
     padding:13px 28px;border-radius:2px;font-size:.92rem;cursor:pointer;
   }
 
-  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px;flex-wrap:wrap;}
   #status-msg{font-size:.85rem;font-weight:600;}
   #status-msg.ok{color:var(--ok);}
   #status-msg.err{color:var(--rust);}
+
+  .add-toggle{
+    background:var(--navy);color:#fff;border:none;padding:9px 16px;border-radius:2px;
+    font-size:.82rem;font-weight:600;cursor:pointer;
+  }
+  .add-toggle:hover{background:var(--gold);color:var(--navy);}
+
+  .add-form{
+    background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:18px;
+    margin-bottom:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
+  }
+  .add-form .field{display:flex;flex-direction:column;gap:4px;}
+  .add-form label{font-size:.72rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+  .add-form .full{grid-column:1/-1;}
+  .add-form .actions{grid-column:1/-1;display:flex;align-items:center;gap:12px;}
+  .add-form .actions .row-msg{margin-top:0;}
 
   table{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:.86rem;}
   thead tr{background:var(--navy);color:var(--cream);}
@@ -52,19 +70,27 @@
   tbody tr:nth-child(even){background:#FBF9F4;}
   td .title{font-weight:600;color:var(--navy);}
   td .regcode{font-family:monospace;font-size:.72rem;color:var(--ink-soft);}
-  input, select{
+  input, select, textarea{
     border:1px solid var(--line);border-radius:2px;padding:6px 8px;font-size:.85rem;
     font-family:'DM Sans',sans-serif;width:100%;
   }
+  textarea{resize:vertical;min-height:38px;}
   input:disabled{background:#f2f0e8;color:#a3a3a3;}
   .quota-readonly{font-family:monospace;font-size:.82rem;color:var(--ink-soft);white-space:nowrap;}
   .quota-readonly strong{color:var(--ok);}
+  .row-actions{display:flex;gap:6px;white-space:nowrap;}
   .row-save{
     background:var(--navy);color:#fff;border:none;padding:7px 14px;border-radius:2px;
     font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;
   }
   .row-save:hover{background:var(--gold);color:var(--navy);}
   .row-save:disabled{opacity:.5;cursor:default;}
+  .row-delete{
+    background:var(--rust-bg);color:var(--rust);border:1px solid var(--rust);padding:7px 12px;border-radius:2px;
+    font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;
+  }
+  .row-delete:hover{background:var(--rust);color:#fff;}
+  .row-delete:disabled{opacity:.5;cursor:default;}
   .row-msg{font-size:.72rem;margin-top:4px;}
   .row-msg.ok{color:var(--ok);}
   .row-msg.err{color:var(--rust);}
@@ -74,7 +100,7 @@
 
 <div id="gate">
   <h1>Panel Admin</h1>
-  <p>Kelola jadwal batch training. Khusus staf InDeo yang sudah diundang.</p>
+  <p>Kelola program &amp; jadwal batch training. Khusus staf InDeo yang sudah diundang.</p>
   <button id="login-btn">Login</button>
 </div>
 
@@ -87,28 +113,95 @@
     <button id="logout-btn">Logout</button>
   </header>
   <main>
-    <div class="toolbar">
-      <p style="color:var(--ink-soft);font-size:.85rem;">Kuota (Kursi Terisi/Kapasitas) dihitung otomatis dari pendaftaran masuk — bukan field yang bisa diedit.</p>
-      <span id="status-msg"></span>
-    </div>
-    <div style="overflow-x:auto;">
-      <table>
-        <thead>
-          <tr>
-            <th>Program</th>
-            <th>Mulai</th>
-            <th>Selesai</th>
-            <th>Format</th>
-            <th>Venue</th>
-            <th>Kapasitas</th>
-            <th>Kuota</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="batch-rows"></tbody>
-      </table>
-    </div>
+    <section>
+      <div class="toolbar">
+        <div>
+          <h2>Program</h2>
+          <p style="color:var(--ink-soft);font-size:.85rem;">Daftar topik training. Hapus hanya bisa kalau sudah tidak dipakai batch mana pun.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span id="program-status-msg"></span>
+          <button class="add-toggle" id="program-add-toggle">+ Tambah Program</button>
+        </div>
+      </div>
+
+      <div class="add-form" id="program-add-form" hidden>
+        <div class="field"><label>Judul</label><input type="text" id="np-title" placeholder="Nama program"></div>
+        <div class="field"><label>Kode Regulasi</label><input type="text" id="np-regcode" placeholder="POJK .../SEOJK ..."></div>
+        <div class="field"><label>Track Tag</label><input type="text" id="np-tracktag" placeholder="TRACK B · TEKNIS"></div>
+        <div class="field">
+          <label>Tipe Deadline</label>
+          <select id="np-deadlinetype">
+            <option value="batch">Per-batch (biasa)</option>
+            <option value="regulatory">Regulatory</option>
+            <option value="overdue">Overdue</option>
+          </select>
+        </div>
+        <div class="field" id="np-regdeadline-wrap" hidden><label>Tanggal Wajib Patuh</label><input type="date" id="np-regdeadline"></div>
+        <div class="field full"><label>Deskripsi</label><textarea id="np-desc" placeholder="Deskripsi singkat isi program"></textarea></div>
+        <div class="actions">
+          <button class="row-save" id="np-save">Buat Program</button>
+          <div class="row-msg" id="np-msg"></div>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Judul</th><th>Kode Regulasi</th><th>Track Tag</th><th>Deskripsi</th>
+              <th>Tipe Deadline</th><th>Tanggal</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="program-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="toolbar">
+        <div>
+          <h2>Batch</h2>
+          <p style="color:var(--ink-soft);font-size:.85rem;">Kuota (Kursi Terisi/Kapasitas) dihitung otomatis dari pendaftaran masuk — bukan field yang bisa diedit.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span id="status-msg"></span>
+          <button class="add-toggle" id="batch-add-toggle">+ Tambah Batch</button>
+        </div>
+      </div>
+
+      <div class="add-form" id="batch-add-form" hidden>
+        <div class="field"><label>Program</label><select id="nb-program"></select></div>
+        <div class="field"><label>Mulai</label><input type="date" id="nb-start"></div>
+        <div class="field"><label>Selesai</label><input type="date" id="nb-end"></div>
+        <div class="field">
+          <label>Format</label>
+          <select id="nb-format"><option value="online">Online</option><option value="onsite">Onsite</option></select>
+        </div>
+        <div class="field"><label>Venue</label><input type="text" id="nb-venue" placeholder="Nama venue" disabled></div>
+        <div class="field"><label>Kapasitas</label><input type="number" id="nb-capacity" min="1" value="25"></div>
+        <div class="field">
+          <label>Status</label>
+          <select id="nb-status"><option value="open">Open</option><option value="closed">Closed</option><option value="draft">Draft</option></select>
+        </div>
+        <div class="actions">
+          <button class="row-save" id="nb-save">Buat Batch</button>
+          <div class="row-msg" id="nb-msg"></div>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Program</th><th>Mulai</th><th>Selesai</th><th>Format</th><th>Venue</th>
+              <th>Kapasitas</th><th>Kuota</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="batch-rows"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -118,8 +211,19 @@
   var app = document.getElementById('app');
   var loginBtn = document.getElementById('login-btn');
   var logoutBtn = document.getElementById('logout-btn');
-  var rowsEl = document.getElementById('batch-rows');
+
+  var programRowsEl = document.getElementById('program-rows');
+  var programStatusMsg = document.getElementById('program-status-msg');
+  var programAddToggle = document.getElementById('program-add-toggle');
+  var programAddForm = document.getElementById('program-add-form');
+
+  var batchRowsEl = document.getElementById('batch-rows');
   var statusMsg = document.getElementById('status-msg');
+  var batchAddToggle = document.getElementById('batch-add-toggle');
+  var batchAddForm = document.getElementById('batch-add-form');
+  var nbProgramSel = document.getElementById('nb-program');
+
+  var currentPrograms = [];
 
   function waitForWidget(cb) {
     if (window.netlifyIdentity) return cb(window.netlifyIdentity);
@@ -146,12 +250,7 @@
     function showApp(user) {
       gate.hidden = true;
       app.hidden = false;
-      loadBatches(user);
-    }
-
-    function setStatus(text, cls) {
-      statusMsg.textContent = text;
-      statusMsg.className = cls || '';
+      loadPrograms(user).then(function(){ loadBatches(user); });
     }
 
     function authHeaders(user) {
@@ -160,8 +259,193 @@
       });
     }
 
+    // ---------- Programs ----------
+
+    programAddToggle.addEventListener('click', function(){
+      programAddForm.hidden = !programAddForm.hidden;
+    });
+    document.getElementById('np-deadlinetype').addEventListener('change', function(){
+      document.getElementById('np-regdeadline-wrap').hidden = this.value !== 'regulatory';
+    });
+
+    function loadPrograms(user) {
+      programStatusMsg.textContent = 'Memuat...';
+      programStatusMsg.className = '';
+      return authHeaders(user).then(function(headers){
+        return fetch('/api/admin/programs', { headers: headers });
+      }).then(function(r){
+        if (r.status === 401) throw new Error('Sesi tidak sah — silakan login ulang.');
+        if (!r.ok) throw new Error('Gagal memuat program (' + r.status + ')');
+        return r.json();
+      }).then(function(programs){
+        currentPrograms = programs;
+        renderProgramRows(programs, user);
+        renderProgramOptions(programs);
+        programStatusMsg.textContent = '';
+      }).catch(function(err){
+        programStatusMsg.textContent = err.message;
+        programStatusMsg.className = 'err';
+      });
+    }
+
+    function renderProgramOptions(programs) {
+      nbProgramSel.innerHTML = programs.map(function(p){
+        return '<option value="' + p.id + '">' + p.title + '</option>';
+      }).join('');
+    }
+
+    function renderProgramRows(programs, user) {
+      programRowsEl.innerHTML = '';
+      programs.forEach(function(p){
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td><input type="text" class="pf-title" value="' + (p.title||'').replace(/"/g,'&quot;') + '"></td>' +
+          '<td><input type="text" class="pf-regcode" value="' + (p.regCode||'').replace(/"/g,'&quot;') + '"></td>' +
+          '<td><input type="text" class="pf-tracktag" value="' + (p.trackTag||'').replace(/"/g,'&quot;') + '"></td>' +
+          '<td><textarea class="pf-desc">' + (p.desc||'') + '</textarea></td>' +
+          '<td><select class="pf-deadlinetype">' +
+            '<option value="batch"' + (p.deadlineType==='batch'?' selected':'') + '>Per-batch</option>' +
+            '<option value="regulatory"' + (p.deadlineType==='regulatory'?' selected':'') + '>Regulatory</option>' +
+            '<option value="overdue"' + (p.deadlineType==='overdue'?' selected':'') + '>Overdue</option>' +
+          '</select></td>' +
+          '<td><input type="date" class="pf-regdeadline" value="' + (p.regDeadline||'') + '" ' + (p.deadlineType!=='regulatory'?'disabled':'') + '></td>' +
+          '<td><div class="row-actions"><button class="row-save">Simpan</button><button class="row-delete">Hapus</button></div><div class="row-msg"></div></td>';
+
+        var typeSel = tr.querySelector('.pf-deadlinetype');
+        var deadlineInput = tr.querySelector('.pf-regdeadline');
+        typeSel.addEventListener('change', function(){
+          deadlineInput.disabled = typeSel.value !== 'regulatory';
+        });
+
+        tr.querySelector('.row-save').addEventListener('click', function(){
+          saveProgramRow(p, tr, user);
+        });
+        tr.querySelector('.row-delete').addEventListener('click', function(){
+          deleteProgramRow(p, tr, user);
+        });
+
+        programRowsEl.appendChild(tr);
+      });
+    }
+
+    function saveProgramRow(original, tr, user) {
+      var btn = tr.querySelector('.row-save');
+      var delBtn = tr.querySelector('.row-delete');
+      var msg = tr.querySelector('.row-msg');
+      var updated = Object.assign({}, original, {
+        title: tr.querySelector('.pf-title').value,
+        regCode: tr.querySelector('.pf-regcode').value,
+        trackTag: tr.querySelector('.pf-tracktag').value,
+        desc: tr.querySelector('.pf-desc').value,
+        deadlineType: tr.querySelector('.pf-deadlinetype').value,
+        regDeadline: tr.querySelector('.pf-regdeadline').value || undefined,
+      });
+
+      btn.disabled = true; delBtn.disabled = true;
+      msg.textContent = ''; msg.className = 'row-msg';
+
+      authHeaders(user).then(function(headers){
+        return fetch('/api/admin/programs', { method: 'PUT', headers: headers, body: JSON.stringify(updated) });
+      }).then(function(r){
+        return r.json().then(function(body){ return { ok: r.ok, body: body }; });
+      }).then(function(res){
+        btn.disabled = false; delBtn.disabled = false;
+        if (!res.ok) {
+          msg.textContent = res.body.error || 'Gagal menyimpan';
+          msg.className = 'row-msg err';
+          return;
+        }
+        msg.textContent = 'Tersimpan.';
+        msg.className = 'row-msg ok';
+        setTimeout(function(){ msg.textContent = ''; }, 2500);
+        loadPrograms(user);
+      }).catch(function(){
+        btn.disabled = false; delBtn.disabled = false;
+        msg.textContent = 'Gagal menyimpan (jaringan)';
+        msg.className = 'row-msg err';
+      });
+    }
+
+    function deleteProgramRow(program, tr, user) {
+      if (!confirm('Hapus program "' + program.title + '"? Tindakan ini tidak bisa dibatalkan.')) return;
+      var btn = tr.querySelector('.row-save');
+      var delBtn = tr.querySelector('.row-delete');
+      var msg = tr.querySelector('.row-msg');
+      btn.disabled = true; delBtn.disabled = true;
+
+      authHeaders(user).then(function(headers){
+        return fetch('/api/admin/programs?id=' + encodeURIComponent(program.id), { method: 'DELETE', headers: headers });
+      }).then(function(r){
+        if (r.status === 204) {
+          loadPrograms(user);
+          return;
+        }
+        return r.json().then(function(body){
+          btn.disabled = false; delBtn.disabled = false;
+          msg.textContent = body.error || 'Gagal menghapus';
+          msg.className = 'row-msg err';
+        });
+      }).catch(function(){
+        btn.disabled = false; delBtn.disabled = false;
+        msg.textContent = 'Gagal menghapus (jaringan)';
+        msg.className = 'row-msg err';
+      });
+    }
+
+    document.getElementById('np-save').addEventListener('click', function(){
+      waitForWidget(function(netlifyIdentity){
+        var user = netlifyIdentity.currentUser();
+        var msg = document.getElementById('np-msg');
+        var btn = document.getElementById('np-save');
+        var deadlineType = document.getElementById('np-deadlinetype').value;
+        var input = {
+          title: document.getElementById('np-title').value,
+          regCode: document.getElementById('np-regcode').value,
+          trackTag: document.getElementById('np-tracktag').value,
+          desc: document.getElementById('np-desc').value,
+          deadlineType: deadlineType,
+          regDeadline: deadlineType === 'regulatory' ? document.getElementById('np-regdeadline').value : undefined,
+        };
+
+        btn.disabled = true; msg.textContent = ''; msg.className = 'row-msg';
+        authHeaders(user).then(function(headers){
+          return fetch('/api/admin/programs', { method: 'POST', headers: headers, body: JSON.stringify(input) });
+        }).then(function(r){
+          return r.json().then(function(body){ return { ok: r.ok, body: body }; });
+        }).then(function(res){
+          btn.disabled = false;
+          if (!res.ok) {
+            msg.textContent = res.body.error || 'Gagal membuat program';
+            msg.className = 'row-msg err';
+            return;
+          }
+          msg.textContent = 'Program dibuat.';
+          msg.className = 'row-msg ok';
+          document.getElementById('np-title').value = '';
+          document.getElementById('np-regcode').value = '';
+          document.getElementById('np-tracktag').value = '';
+          document.getElementById('np-desc').value = '';
+          loadPrograms(user);
+        }).catch(function(){
+          btn.disabled = false;
+          msg.textContent = 'Gagal membuat program (jaringan)';
+          msg.className = 'row-msg err';
+        });
+      });
+    });
+
+    // ---------- Batches ----------
+
+    batchAddToggle.addEventListener('click', function(){
+      batchAddForm.hidden = !batchAddForm.hidden;
+    });
+    document.getElementById('nb-format').addEventListener('change', function(){
+      document.getElementById('nb-venue').disabled = this.value !== 'onsite';
+    });
+
     function loadBatches(user) {
-      setStatus('Memuat...', '');
+      statusMsg.textContent = 'Memuat...';
+      statusMsg.className = '';
       authHeaders(user).then(function(headers){
         return fetch('/api/admin/batches', { headers: headers });
       }).then(function(r){
@@ -170,19 +454,29 @@
         return r.json();
       }).then(function(batches){
         renderRows(batches, user);
-        setStatus('', '');
+        statusMsg.textContent = '';
       }).catch(function(err){
-        setStatus(err.message, 'err');
+        statusMsg.textContent = err.message;
+        statusMsg.className = 'err';
       });
     }
 
+    function programTitle(programId) {
+      var p = currentPrograms.filter(function(x){ return x.id === programId; })[0];
+      return p ? p.title : programId;
+    }
+    function programRegCode(programId) {
+      var p = currentPrograms.filter(function(x){ return x.id === programId; })[0];
+      return p ? (p.regCode || '') : '';
+    }
+
     function renderRows(batches, user) {
-      rowsEl.innerHTML = '';
+      batchRowsEl.innerHTML = '';
       batches.forEach(function(b){
         var tr = document.createElement('tr');
         var quotaPct = b.maxCapacity ? Math.round((b.registeredCount / b.maxCapacity) * 100) : 0;
         tr.innerHTML =
-          '<td><div class="title">' + (b.program ? b.program.title : b.programId) + '</div><div class="regcode">' + (b.program ? b.program.regCode : '') + '</div></td>' +
+          '<td><div class="title">' + programTitle(b.programId) + '</div><div class="regcode">' + programRegCode(b.programId) + '</div></td>' +
           '<td><input type="date" class="f-start" value="' + b.dateStart + '"></td>' +
           '<td><input type="date" class="f-end" value="' + b.dateEnd + '"></td>' +
           '<td><select class="f-format"><option value="online"' + (b.format==='online'?' selected':'') + '>Online</option><option value="onsite"' + (b.format==='onsite'?' selected':'') + '>Onsite</option></select></td>' +
@@ -190,7 +484,7 @@
           '<td><input type="number" class="f-capacity" min="1" value="' + b.maxCapacity + '" style="width:70px;"></td>' +
           '<td class="quota-readonly">' + b.registeredCount + '/' + b.maxCapacity + ' (<strong>' + quotaPct + '%</strong>)</td>' +
           '<td><select class="f-status"><option value="open"' + (b.status==='open'?' selected':'') + '>Open</option><option value="closed"' + (b.status==='closed'?' selected':'') + '>Closed</option><option value="draft"' + (b.status==='draft'?' selected':'') + '>Draft</option></select></td>' +
-          '<td><button class="row-save">Simpan</button><div class="row-msg"></div></td>';
+          '<td><div class="row-actions"><button class="row-save">Simpan</button><button class="row-delete">Hapus</button></div><div class="row-msg"></div></td>';
 
         var formatSel = tr.querySelector('.f-format');
         var venueInput = tr.querySelector('.f-venue');
@@ -201,13 +495,17 @@
         tr.querySelector('.row-save').addEventListener('click', function(){
           saveRow(b, tr, user);
         });
+        tr.querySelector('.row-delete').addEventListener('click', function(){
+          deleteRow(b, tr, user);
+        });
 
-        rowsEl.appendChild(tr);
+        batchRowsEl.appendChild(tr);
       });
     }
 
     function saveRow(original, tr, user) {
       var btn = tr.querySelector('.row-save');
+      var delBtn = tr.querySelector('.row-delete');
       var msg = tr.querySelector('.row-msg');
       var updated = Object.assign({}, original, {
         dateStart: tr.querySelector('.f-start').value,
@@ -222,7 +520,7 @@
       delete updated.daysUntilStart;
       delete updated.daysUntilRegDeadline;
 
-      btn.disabled = true;
+      btn.disabled = true; delBtn.disabled = true;
       msg.textContent = '';
       msg.className = 'row-msg';
 
@@ -231,7 +529,7 @@
       }).then(function(r){
         return r.json().then(function(body){ return { ok: r.ok, body: body }; });
       }).then(function(res){
-        btn.disabled = false;
+        btn.disabled = false; delBtn.disabled = false;
         if (!res.ok) {
           msg.textContent = res.body.error || 'Gagal menyimpan';
           msg.className = 'row-msg err';
@@ -241,11 +539,75 @@
         msg.className = 'row-msg ok';
         setTimeout(function(){ msg.textContent = ''; }, 2500);
       }).catch(function(){
-        btn.disabled = false;
+        btn.disabled = false; delBtn.disabled = false;
         msg.textContent = 'Gagal menyimpan (jaringan)';
         msg.className = 'row-msg err';
       });
     }
+
+    function deleteRow(batch, tr, user) {
+      if (!confirm('Hapus batch "' + programTitle(batch.programId) + ' (' + batch.dateStart + ')"? Tindakan ini tidak bisa dibatalkan.')) return;
+      var btn = tr.querySelector('.row-save');
+      var delBtn = tr.querySelector('.row-delete');
+      var msg = tr.querySelector('.row-msg');
+      btn.disabled = true; delBtn.disabled = true;
+
+      authHeaders(user).then(function(headers){
+        return fetch('/api/admin/batches?id=' + encodeURIComponent(batch.id), { method: 'DELETE', headers: headers });
+      }).then(function(r){
+        if (r.status === 204) {
+          loadBatches(user);
+          return;
+        }
+        return r.json().then(function(body){
+          btn.disabled = false; delBtn.disabled = false;
+          msg.textContent = body.error || 'Gagal menghapus';
+          msg.className = 'row-msg err';
+        });
+      }).catch(function(){
+        btn.disabled = false; delBtn.disabled = false;
+        msg.textContent = 'Gagal menghapus (jaringan)';
+        msg.className = 'row-msg err';
+      });
+    }
+
+    document.getElementById('nb-save').addEventListener('click', function(){
+      waitForWidget(function(netlifyIdentity){
+        var user = netlifyIdentity.currentUser();
+        var msg = document.getElementById('nb-msg');
+        var btn = document.getElementById('nb-save');
+        var input = {
+          programId: nbProgramSel.value,
+          dateStart: document.getElementById('nb-start').value,
+          dateEnd: document.getElementById('nb-end').value,
+          format: document.getElementById('nb-format').value,
+          venue: document.getElementById('nb-venue').value,
+          maxCapacity: parseInt(document.getElementById('nb-capacity').value, 10),
+          status: document.getElementById('nb-status').value,
+        };
+
+        btn.disabled = true; msg.textContent = ''; msg.className = 'row-msg';
+        authHeaders(user).then(function(headers){
+          return fetch('/api/admin/batches', { method: 'POST', headers: headers, body: JSON.stringify(input) });
+        }).then(function(r){
+          return r.json().then(function(body){ return { ok: r.ok, body: body }; });
+        }).then(function(res){
+          btn.disabled = false;
+          if (!res.ok) {
+            msg.textContent = res.body.error || 'Gagal membuat batch';
+            msg.className = 'row-msg err';
+            return;
+          }
+          msg.textContent = 'Batch dibuat.';
+          msg.className = 'row-msg ok';
+          loadBatches(user);
+        }).catch(function(){
+          btn.disabled = false;
+          msg.textContent = 'Gagal membuat batch (jaringan)';
+          msg.className = 'row-msg err';
+        });
+      });
+    });
   });
 })();
 </script>

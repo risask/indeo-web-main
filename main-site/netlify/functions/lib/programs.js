@@ -1,6 +1,8 @@
-// Data statis 12 program — konten regulasi, TIDAK diedit lewat panel admin batch.
+// Seed data awal 12 program — dipakai sekali untuk isi Blobs store pertama kali (lihat
+// blobStore.js getAllPrograms()). Setelah itu sumber kebenaran ada di Blobs, dikelola lewat
+// panel admin — bukan array ini lagi.
 // Sumber: bpr-bprs.html (reg-badge/judul existing) + panel-admin-batch-training.jsx (prototipe).
-export const PROGRAMS = [
+export const SEED_PROGRAMS = [
   { id: "tata-kelola", title: "Tata Kelola 12 Pilar", regCode: "POJK 9/2024 · 25/2024", trackTag: "TRACK B · TEKNIS", desc: "4 sesi + workshop self-assessment 12 pilar, termasuk Modul BPRS.", deadlineType: "batch" },
   { id: "kualitas-aset", title: "Kualitas Aset & CKPN", regCode: "POJK 1/2024 · 24/2024", trackTag: "TRACK B · TEKNIS", desc: "3 sesi workshop template penilaian aset & simulasi CKPN, plus Modul BPRS.", deadlineType: "batch" },
   { id: "manajemen-risiko", title: "Manajemen Risiko & Anti-Fraud", regCode: "POJK 13/2015 · SEOJK 1/2019", trackTag: "TRACK B · TEKNIS", desc: "3 sesi workshop profil risiko & register anti-fraud institusi.", deadlineType: "batch" },
@@ -14,7 +16,3 @@ export const PROGRAMS = [
   { id: "transformasi-digital", title: "Transformasi Digital & LKD", regCode: "POJK 1/2022", trackTag: "TRACK B · TEKNIS", desc: "3 sesi workshop kertas kerja kesiapan operasional LKD.", deadlineType: "batch" },
   { id: "umkm", title: "Pembiayaan UMKM", regCode: "POJK 19/2025", trackTag: "TRACK B · TEKNIS", desc: "3 sesi workshop kebijakan pembiayaan UMKM & kertas kerja RBB 2026.", deadlineType: "overdue" },
 ];
-
-export function getProgram(programId) {
-  return PROGRAMS.find((p) => p.id === programId) || null;
-}
